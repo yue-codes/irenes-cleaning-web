@@ -14,15 +14,17 @@ const Popup = () => {
     setIsVisible(false);
   };
 
-  const handleSubmit = async (event: h.JSX.TargetedEvent<HTMLFormElement, Event>) => {
+  const handleSubmit = async (
+    event: h.JSX.TargetedEvent<HTMLFormElement, Event>,
+  ) => {
     event.preventDefault();
-    
+
     // Verificar palabras prohibidas
-    const forbiddenWords = ['scam', 'scammer', 'scamming', 'scammed'];
-    const inputText = (name + ' ' + phoneNumber).toLowerCase();
-    
-    if (forbiddenWords.some(word => inputText.includes(word))) {
-      alert('Thank you for your message! We will get back to you soon.');
+    const forbiddenWords = ["scam", "scammer", "scamming", "scammed"];
+    const inputText = (name + " " + phoneNumber).toLowerCase();
+
+    if (forbiddenWords.some((word) => inputText.includes(word))) {
+      alert("Thank you for your message! We will get back to you soon.");
       closePopup();
       return;
     }
@@ -35,18 +37,18 @@ const Popup = () => {
         method: form.method,
         body: formData,
         headers: {
-          'Accept': 'application/json'
-        }
+          Accept: "application/json",
+        },
       });
       if (response.ok) {
-        alert('Thank you for your message! We will get back to you soon.');
+        alert("Thank you for your message! We will get back to you soon.");
         closePopup();
       } else {
-        alert('Thank you for your message! We will get back to you soon.');
+        alert("Thank you for your message! We will get back to you soon.");
         closePopup();
       }
     } catch (error) {
-      alert('Thank you for your message! We will get back to you soon.');
+      alert("Thank you for your message! We will get back to you soon.");
       closePopup();
     }
   };
@@ -75,9 +77,7 @@ const Popup = () => {
                 type="text"
                 name="name"
                 value={name}
-                onChange={(e) =>
-                  setName((e.target as HTMLInputElement).value)
-                }
+                onChange={(e) => setName((e.target as HTMLInputElement).value)}
                 required
                 placeholder="Your name"
                 style={inputStyle}
@@ -92,7 +92,7 @@ const Popup = () => {
                   setPhoneNumber((e.target as HTMLInputElement).value)
                 }
                 required
-                placeholder="Your number: 862-318-4425"
+                placeholder="Your number: 201-523-8741"
                 style={inputStyle}
               />
             </label>
