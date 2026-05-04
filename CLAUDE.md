@@ -32,16 +32,21 @@ Single-page site (`src/pages/index.astro`) that composes all sections in order:
 
 When Resend is implemented, this will require `output: 'hybrid'` in `astro.config.mjs` and the `@astrojs/cloudflare` adapter, plus API endpoints at `src/pages/api/`.
 
-**Styling** is Tailwind CSS (migrating from v3 to v4). Custom CSS variables for theming are defined in `Layout.astro`'s `<style is:global>`. The `underline-pink` pseudo-element decoration is duplicated in three files — keep in mind when refactoring.
+**Styling** is Tailwind CSS (migrating v3 → v4). Custom CSS variables for theming are defined in `Layout.astro`'s `<style is:global>`. The `underline-pink` pseudo-element decoration is duplicated in three files — keep in mind when refactoring.
 
-**Deployment:** Cloudflare Pages, auto-deploys from `main` branch on GitHub push. Build command: `pnpm build`. Never push a broken build to `main`.
+**Deployment:** Cloudflare Pages, auto-deploys from `main` branch on GitHub push. Build command: `pnpm build`. Never push a broken build to `main`. Node.js version set to 22 in the Cloudflare dashboard and `.nvmrc`.
 
-## Key constraints
+## Known issues (pending fixes)
 
-- **`og:url`** must be `https://mrsirenescleaning.com` (not `irenescleaning.com` — the wrong domain is a known bug)
-- **`og:image`** must be an absolute URL, not a relative path
-- `Bento.astro` and `Services.astro` currently both have `id="services"` — duplicate IDs, navigation anchor is broken
-- `keen-slider` is loaded via CDN in `Reviews.astro`, not as an npm package
-- Social links in `FormsContact.astro` point to `#contact` as placeholder — real URLs not yet provided
-- `SwitchTheme.astro` exists but is unused — scheduled for deletion
-- `src/assets/astro.svg` and `src/assets/background.svg` are Astro template leftovers — scheduled for deletion
+- **`og:url`** must be `https://mrsirenescleaning.com` — currently points to wrong domain `irenescleaning.com`
+- **`og:image`** must be an absolute URL — currently a relative path, social sharing previews break
+- `Bento.astro` and `Services.astro` both have `id="services"` — duplicate IDs break anchor navigation
+- `keen-slider` loaded via CDN in `Reviews.astro` — should be an npm package
+- Social links in `FormsContact.astro` point to `#contact` — real URLs pending
+- `SwitchTheme.astro` — unused component, scheduled for deletion
+- `src/assets/astro.svg`, `src/assets/background.svg` — Astro template leftovers, scheduled for deletion
+- `Hamburgermenu.tsx` nav items in Spanish — site language is English
+- `Hero.astro:36` — orphaned `</form>` tag (invalid HTML)
+- `Footer.astro:28` — orphaned `</svg>` tag (invalid HTML)
+- `Header.astro` — `<ul>` nested inside `<ul>` (invalid HTML)
+- `Popup.tsx` — shows on every page load with no delay and no sessionStorage check

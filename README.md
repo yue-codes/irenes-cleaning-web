@@ -1,48 +1,102 @@
-# Astro Starter Kit: Basics
+# Irene's Cleaning — Official Website
 
-```sh
-npm create astro@latest -- --template basics
+Professional cleaning service website for **Irene's Cleaning**, serving Jersey City and surrounding areas in New Jersey.
+
+**Live site:** [mrsirenescleaning.com](https://mrsirenescleaning.com)
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | [Astro 5](https://astro.build) |
+| UI components | [Preact](https://preactjs.com) (not React) |
+| Styling | [Tailwind CSS](https://tailwindcss.com) |
+| Font | [Onest Variable](https://fontsource.org/fonts/onest) |
+| Deployment | [Cloudflare Pages](https://pages.cloudflare.com) |
+| Forms | Formspree → migrating to [Resend](https://resend.com) |
+| Package manager | [pnpm](https://pnpm.io) |
+
+---
+
+## Prerequisites
+
+- Node.js >= 22
+- pnpm >= 10 — install with `npm i -g pnpm`
+
+---
+
+## Getting Started
+
+```bash
+pnpm install
+pnpm dev       # http://localhost:4321
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## Available Commands
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+pnpm dev          # Development server with hot reload
+pnpm build        # Production build → ./dist/
+pnpm preview      # Preview production build locally
+pnpm astro check  # TypeScript diagnostics
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+---
 
-## 🧞 Commands
+## Project Structure
 
-All commands are run from the root of the project, from a terminal:
+```
+src/
+├── components/       # UI components (.astro + .tsx for interactive)
+│   ├── icons/        # SVG icon components
+│   ├── hooks/        # Preact hooks (useProgressiveNumber)
+│   └── shared/       # Generic layout helpers (Container, Paragraph)
+├── layouts/
+│   └── Layout.astro  # Root HTML shell, meta tags, global styles
+├── pages/
+│   ├── index.astro   # Single-page site entry point
+│   └── robots.txt.ts # Dynamic robots.txt
+└── utils/
+    └── data.ts       # Services content data
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Page sections render in this order:
+`Popup → Hero → Numeros → Reviews → Services → Bento → FormsContact → Footer`
 
-## 👀 Want to learn more?
+---
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Deployment
+
+Hosted on **Cloudflare Pages** with automatic deployments:
+- Every push to `main` triggers a production build
+- Build command: `pnpm build`
+- Node.js version: 22
+
+**Never push directly to `main` without verifying `pnpm build` passes locally.**
+
+---
+
+## Environment Variables
+
+| Variable | Where | Purpose |
+|---|---|---|
+| `PNPM_VERSION` | Cloudflare Pages | Pins pnpm version for CI builds |
+| `RESEND_API_KEY` | Cloudflare Pages | Email sending via Resend *(pending setup)* |
+
+---
+
+## External Services
+
+| Service | Purpose | Notes |
+|---|---|---|
+| Cloudflare Pages | Hosting + CDN | Auto-deploy from GitHub |
+| Formspree | Form submissions | Being replaced by Resend |
+| jsDelivr CDN | keen-slider library | Being moved to npm package |
+
+---
+
+## Development Notes
+
+See [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md) for the full update roadmap, technical decisions, and future task list.
