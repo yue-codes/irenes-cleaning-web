@@ -43,13 +43,12 @@ Código muerto a eliminar:
 Mejora de UX:
 - `Popup.tsx` — agregar retraso de 2 segundos antes de mostrarse + verificación con `sessionStorage` para que no reaparezca en la misma sesión del navegador
 
-### 🔲 Fase 4 — keen-slider como paquete npm
-`Reviews.astro` actualmente carga keen-slider desde el CDN de jsDelivr:
-```html
-<link href="https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/keen-slider.min.css" rel="stylesheet" />
-<script type="module">import KeenSlider from 'https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/+esm'</script>
-```
-Reemplazar con `pnpm add keen-slider` e importar localmente. Elimina la dependencia externa y permite que Cloudflare lo cachee correctamente.
+### ✅ Fase 4 — Slider de reseñas reescrito sin dependencias
+Reescrito `Reviews.astro` con CSS Scroll Snap nativo + ~20 líneas de JS vanilla.
+- Sin dependencias externas ni paquetes npm
+- 0 KB añadido al bundle
+- Scroll nativo del navegador (rendimiento óptimo)
+- Misma funcionalidad: prev/next, contador, opacidad en slides inactivos, responsive
 
 ### 🔲 Fase 5 — Tailwind CSS v3 → v4
 Migración significativa. Tailwind v4 elimina el archivo de configuración y pasa a configuración basada en CSS.
