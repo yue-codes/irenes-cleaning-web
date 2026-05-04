@@ -50,17 +50,17 @@ Reescrito `Reviews.astro` con CSS Scroll Snap nativo + ~20 líneas de JS vanilla
 - Scroll nativo del navegador (rendimiento óptimo)
 - Misma funcionalidad: prev/next, contador, opacidad en slides inactivos, responsive
 
-### 🔲 Fase 5 — Tailwind CSS v3 → v4
+### ✅ Fase 5 — Astro 5→6 + Tailwind CSS v3→v4
 Migración significativa. Tailwind v4 elimina el archivo de configuración y pasa a configuración basada en CSS.
 
-Cambios principales:
-- Eliminar la integración `@astrojs/tailwind` (deprecada en Astro 5)
-- Instalar `tailwindcss@^4` + `@tailwindcss/vite`
-- Actualizar `astro.config.mjs`: quitar tailwind de integrations, agregar al array `vite.plugins`
-- Eliminar `tailwind.config.mjs` — la configuración pasa a un archivo CSS con `@theme`
-- Ejecutar `npx @tailwindcss/upgrade` como punto de partida para la migración automática
-- Verificar compatibilidad del plugin `tailwindcss-animations` con v4 (puede necesitar reemplazo)
-- Revisar las variables CSS de `Layout.astro` — algunas pueden mapearse a los nuevos tokens `@theme` de v4
+Cambios aplicados:
+- Astro 5.18 → 6.2.2, @astrojs/preact 4.x → 5.x
+- Eliminado `@astrojs/tailwind` + `tailwindcss@3` + `tailwindcss-animations` (deprecado)
+- Instalado `tailwindcss@4.2.4` + `@tailwindcss/vite`
+- Eliminado `tailwind.config.mjs` — reemplazado por `src/styles/global.css`
+- `astro.config.mjs`: tailwind movido de integrations a `vite.plugins`
+- `src/styles/global.css`: `@import "tailwindcss"` + `@custom-variant dark` + `@layer utilities` con las clases custom (`bg-body`, `text-heading-*`, etc.) correctamente mapeadas a las variables CSS del tema
+- `Bento.astro`: corregido `transition-scale` (inválido) → `transition-transform` en los 4 fondos de imagen
 
 ### 🔲 Fase 6 — Reemplazar Formspree con Resend *(BLOQUEADO)*
 > **Bloqueado por:** necesitamos la dirección de correo destino (a dónde llegan los leads)

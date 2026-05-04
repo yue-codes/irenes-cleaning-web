@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+/* Dark mode via .dark class (sistema de variables CSS del Layout) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  Utilidades custom que mapean las variables CSS del tema
+  definidas en Layout.astro (:root y .dark)
+*/
+@layer utilities {
+  .bg-body {
+    background-color: rgb(var(--color-bg));
+  }
+  .bg-box-bg {
+    background-color: rgb(var(--color-box));
+  }
+  .border-box-border {
+    border-color: rgb(var(--box-border));
+  }
+  .border-box-bg {
+    border-color: rgb(var(--color-border));
+  }
+  .text-heading-1 {
+    color: rgb(var(--heading-1));
+  }
+  .text-heading-2 {
+    color: rgb(var(--heading-2));
+  }
+  .text-heading-3 {
+    color: rgb(var(--heading-3));
+  }
+  .shadow-box-shadow {
+    --tw-shadow-color: rgb(var(--box-sd));
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
+}

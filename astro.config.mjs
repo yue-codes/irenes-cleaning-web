@@ -1,17 +1,14 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-
-import tailwind from '@astrojs/tailwind';
-
+import tailwindcss from '@tailwindcss/vite';
 import preact from '@astrojs/preact';
-
 import sitemap from '@astrojs/sitemap';
 
-// https://astro.build/config
 export default defineConfig({
   site: "https://mrsirenescleaning.com/",
-  integrations: [tailwind(), preact(), sitemap()],
+  integrations: [preact(), sitemap()],
   vite: {
+    plugins: [tailwindcss()],
     resolve: {
       extensions: ['.tsx', '.ts', '.jsx', '.js', '.json']
     }

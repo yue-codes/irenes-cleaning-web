@@ -13,14 +13,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/preact": "^4.1.0",
-    "@astrojs/sitemap": "^3.4.1",
-    "@astrojs/tailwind": "^6.0.2",
+    "@astrojs/preact": "^5.1.2",
+    "@astrojs/sitemap": "^3.7.2",
     "@fontsource-variable/onest": "^5.1.1",
-    "astro": "^5.9.4",
+    "@tailwindcss/vite": "^4.2.4",
+    "astro": "^6.2.2",
     "preact": "^10.25.4",
-    "tailwindcss": "^3.4.17",
-    "tailwindcss-animations": "^2.0.0"
+    "tailwindcss": "^4.2.4"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
