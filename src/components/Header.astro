@@ -18,7 +18,7 @@ import Hamburgermenu from './Hamburgermenu.tsx';
             </div>
 
             <div data-nav-overlay aria-hidden="true" class="fixed hidden inset-0 lg:!hidden bg-box-bg opacity-50 backdrop-filter backdrop-blur-xl"></div>
-            <div data-navbar class="flex h-0 overflow-hidden lg:!h-auto lg:scale-y-100 duration-300 ease-linear flex-col gap-y-6 gap-x-4 lg:flex-row w-full lg:justify-between lg:items-center absolute lg:relative top-full lg:top-0 bg-body lg:bg-transparent border-x border-x-box-border lg:border-x-0">
+            <div data-navbar class="flex h-0 overflow-hidden lg:!h-auto lg:scale-y-100 duration-300 ease-linear flex-col gap-y-6 gap-x-4 lg:flex-row w-full lg:justify-between lg:items-center absolute lg:relative top-full lg:top-0 bg-transparent lg:bg-transparent border-x border-x-box-border lg:border-x-0">
                 <ul class="border-t border-box-border lg:border-t-0 px-6 lg:px-0 pt-6 lg:pt-0 flex flex-col lg:flex-row gap-y-4 gap-x-3 text-lg w-full lg:justify-center lg:items-center">
                     <li><a href="/" class="text-lg">Home</a></li>
                     <li><a href="#services" class="text-lg">Services</a></li>
@@ -44,12 +44,17 @@ import Hamburgermenu from './Hamburgermenu.tsx';
 <style>
 
   #header-nav {
+    background-color: transparent;
     animation: blur-light linear both, text-color-change linear both;
     animation-timeline: scroll();
-    animation-range: 0 500px;
+    animation-range: 0px 500px;
   }
 
   @keyframes blur-light {
+    from {
+      background: transparent;
+      backdrop-filter: blur(0px);
+    }
     to {
       box-shadow: 0px 5px 50px -5px rgba(0, 0, 0, 0.1), 0px 0px 0 1px rgba(0, 0, 0, 0.1);
       background: rgba(255, 242, 251, 0.5);
@@ -58,6 +63,9 @@ import Hamburgermenu from './Hamburgermenu.tsx';
   }
 
   @keyframes text-color-change {
+    from {
+      color: white;
+    }
     to {
       color: #8d0ea7; /* Cambia este color al que desees */
     }
@@ -66,10 +74,14 @@ import Hamburgermenu from './Hamburgermenu.tsx';
   .dark #header-nav {
     animation: blur-dark linear both, text-color-change-dark linear both;
     animation-timeline: scroll();
-    animation-range: 0 500px;
+    animation-range: 0px 500px;
   }
 
   @keyframes blur-dark {
+    from {
+      background: transparent;
+      backdrop-filter: blur(0px);
+    }
     to {
       box-shadow: 0px 5px 50px -5px rgba(0, 0, 0, 0.1), 0px 0px 0 1px rgba(0, 0, 0, 0.1);
       background: rgba(49, 40, 49, 0.3);
@@ -78,6 +90,9 @@ import Hamburgermenu from './Hamburgermenu.tsx';
   }
 
   @keyframes text-color-change-dark {
+    from {
+      color: white;
+    }
     to {
       color: #ffffff; /* Cambia este color al que desees */
     }
