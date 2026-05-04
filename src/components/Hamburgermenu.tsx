@@ -42,15 +42,15 @@ const HamburgerMenu = () => {
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
           <ul className="flex flex-col p-2">
             <li className="p-2 hover:bg-purple-200 text-purple-600">
-              <a href="/">Inicio</a>
+              <a href="/">Home</a>
             </li>
 
             <li className="p-2 hover:bg-purple-200 text-purple-600">
-              <a href="#services">Servicios</a>
+              <a href="#services">Services</a>
             </li>
 
             <li className="p-2 hover:bg-purple-200 text-purple-600">
-              <a href="#about">ID/About</a>
+              <a href="#about">About</a>
             </li>
 
             <a href="#contact">

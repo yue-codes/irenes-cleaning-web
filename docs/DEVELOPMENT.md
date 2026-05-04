@@ -20,7 +20,7 @@ Este documento es la referencia viva del trabajo en curso, decisiones técnicas 
 - Actualizada la configuración de Cloudflare Pages: comando de instalación, comando de build, versión de Node, variable `PNPM_VERSION`
 - **Verificado: despliegue en producción exitoso**
 
-### 🔲 Fase 2 — Corrección de bugs de HTML
+### ✅ Fase 2 — Corrección de bugs de HTML
 Archivos con markup inválido que necesitan corrección:
 - `Hero.astro:36` — etiqueta `</form>` huérfana (sin apertura)
 - `Footer.astro:28` — etiqueta `</svg>` huérfana (sin apertura)
