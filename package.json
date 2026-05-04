@@ -2,8 +2,9 @@
   "name": "irenes-cleaning-web",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "pnpm@10.33.0",
   "engines": {
-    "node": ">=18.19.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "dev": "astro dev",
@@ -23,5 +24,8 @@
   },
   "devDependencies": {
     "tailwindcss-animated": "^1.1.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild", "sharp"]
   }
 }
