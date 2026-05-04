@@ -1,128 +1,128 @@
-# Development Notes — Irene's Cleaning Web
+# Notas de Desarrollo — Irene's Cleaning Web
 
-This document serves as the living reference for ongoing work, technical decisions, and future improvements on this project.
+Este documento es la referencia viva del trabajo en curso, decisiones técnicas y mejoras futuras del proyecto.
 
 ---
 
-## Update Roadmap (started 2026-05-04)
+## Roadmap de actualización (iniciado 2026-05-04)
 
-### ✅ Phase 0 — Project documentation
-- Created `CLAUDE.md` with architecture overview and development guidance
-- Created professional `README.md`
-- Created this document
+### ✅ Fase 0 — Documentación del proyecto
+- Creación de `CLAUDE.md` con arquitectura y guía de desarrollo
+- Creación de `README.md` profesional
+- Creación de este documento
 
-### ✅ Phase 1 — Package manager migration
-- Replaced npm with **pnpm@10.33.0**
-- Removed `package-lock.json`, generated `pnpm-lock.yaml`
-- Added `.npmrc` with `shamefully-hoist=true` (required for Astro peer deps)
-- Added `pnpm.onlyBuiltDependencies` for `esbuild` and `sharp` (native binaries)
-- Updated Node.js from 18 (EOL) to **22 LTS**
-- Updated Cloudflare Pages build settings: install command, build command, Node version, `PNPM_VERSION` env var
-- **Verified: production deployment successful**
+### ✅ Fase 1 — Migración de gestor de paquetes
+- Reemplazado npm por **pnpm@10.33.0**
+- Eliminado `package-lock.json`, generado `pnpm-lock.yaml`
+- Agregado `.npmrc` con `shamefully-hoist=true` (requerido por dependencias de Astro)
+- Agregado `pnpm.onlyBuiltDependencies` para `esbuild` y `sharp` (binarios nativos)
+- Actualizado Node.js de 18 (EOL) a **22 LTS**
+- Actualizada la configuración de Cloudflare Pages: comando de instalación, comando de build, versión de Node, variable `PNPM_VERSION`
+- **Verificado: despliegue en producción exitoso**
 
-### 🔲 Phase 2 — HTML bug fixes
-Files with invalid markup that need correction:
-- `Hero.astro:36` — orphaned `</form>` closing tag
-- `Footer.astro:28` — orphaned `</svg>` closing tag  
-- `Header.astro:22-28` — `<ul>` incorrectly nested inside another `<ul>`
-- `Services.astro:18` + `Bento.astro:5` — duplicate `id="services"` breaks anchor nav
-- `Hero.astro` frontmatter — unused `Numeros` import
-- `Hamburgermenu.tsx` — nav items in Spanish on an English-language site
+### 🔲 Fase 2 — Corrección de bugs de HTML
+Archivos con markup inválido que necesitan corrección:
+- `Hero.astro:36` — etiqueta `</form>` huérfana (sin apertura)
+- `Footer.astro:28` — etiqueta `</svg>` huérfana (sin apertura)
+- `Header.astro:22-28` — `<ul>` incorrectamente anidado dentro de otro `<ul>`
+- `Services.astro:18` + `Bento.astro:5` — `id="services"` duplicado, rompe la navegación por anclas
+- `Hero.astro` frontmatter — import de `Numeros` sin usar
+- `Hamburgermenu.tsx` — ítems del menú en español en un sitio en inglés ("Inicio", "Servicios", "ID/About")
 
-### 🔲 Phase 3 — SEO fixes + dead code cleanup
+### 🔲 Fase 3 — Correcciones de SEO y limpieza de código muerto
 SEO:
-- `Layout.astro` `og:url` points to wrong domain (`irenescleaning.com` → `mrsirenescleaning.com`)
-- `Layout.astro` `og:image` is a relative path — must be an absolute URL for social previews to work
+- `Layout.astro` `og:url` apunta al dominio incorrecto (`irenescleaning.com` → `mrsirenescleaning.com`)
+- `Layout.astro` `og:image` es una ruta relativa — debe ser una URL absoluta para que funcionen las previsualizaciones en redes sociales
 
-Dead code to delete:
-- `src/components/SwitchTheme.astro` — dark mode toggle, fully implemented but never connected to the UI
-- `src/assets/astro.svg` — Astro starter template leftover
-- `src/assets/background.svg` — Astro starter template leftover
-- `tailwindcss-animated` devDependency — different package from `tailwindcss-animations` (the one actually used), never imported
+Código muerto a eliminar:
+- `src/components/SwitchTheme.astro` — toggle de modo oscuro, completamente implementado pero nunca conectado a la UI
+- `src/assets/astro.svg` — archivo sobrante del template de Astro
+- `src/assets/background.svg` — archivo sobrante del template de Astro
+- `tailwindcss-animated` en devDependencies — paquete diferente al que realmente se usa (`tailwindcss-animations`), nunca importado
 
-UX improvement:
-- `Popup.tsx` — add 2s delay before showing + `sessionStorage` check so it doesn't re-appear within the same browser session
+Mejora de UX:
+- `Popup.tsx` — agregar retraso de 2 segundos antes de mostrarse + verificación con `sessionStorage` para que no reaparezca en la misma sesión del navegador
 
-### 🔲 Phase 4 — keen-slider as npm package
-`Reviews.astro` currently loads keen-slider from jsDelivr CDN:
+### 🔲 Fase 4 — keen-slider como paquete npm
+`Reviews.astro` actualmente carga keen-slider desde el CDN de jsDelivr:
 ```html
 <link href="https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/keen-slider.min.css" rel="stylesheet" />
 <script type="module">import KeenSlider from 'https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/+esm'</script>
 ```
-Replace with `pnpm add keen-slider` and import locally. Eliminates the external CDN dependency and allows Cloudflare to cache it properly.
+Reemplazar con `pnpm add keen-slider` e importar localmente. Elimina la dependencia externa y permite que Cloudflare lo cachee correctamente.
 
-### 🔲 Phase 5 — Tailwind CSS v3 → v4
-Significant migration. Tailwind v4 removes the config file and moves to CSS-based configuration.
+### 🔲 Fase 5 — Tailwind CSS v3 → v4
+Migración significativa. Tailwind v4 elimina el archivo de configuración y pasa a configuración basada en CSS.
 
-Key changes:
-- Remove `@astrojs/tailwind` integration (deprecated in Astro 5)
-- Install `tailwindcss@^4` + `@tailwindcss/vite`
-- Update `astro.config.mjs`: remove tailwind from integrations, add to `vite.plugins`
-- Delete `tailwind.config.mjs` — configuration moves to a CSS file using `@theme`
-- Run `npx @tailwindcss/upgrade` as starting point for automated migration
-- Verify `tailwindcss-animations` plugin compatibility with v4 (may need replacement)
-- Review custom CSS variables in `Layout.astro` — some may map to new v4 `@theme` tokens
+Cambios principales:
+- Eliminar la integración `@astrojs/tailwind` (deprecada en Astro 5)
+- Instalar `tailwindcss@^4` + `@tailwindcss/vite`
+- Actualizar `astro.config.mjs`: quitar tailwind de integrations, agregar al array `vite.plugins`
+- Eliminar `tailwind.config.mjs` — la configuración pasa a un archivo CSS con `@theme`
+- Ejecutar `npx @tailwindcss/upgrade` como punto de partida para la migración automática
+- Verificar compatibilidad del plugin `tailwindcss-animations` con v4 (puede necesitar reemplazo)
+- Revisar las variables CSS de `Layout.astro` — algunas pueden mapearse a los nuevos tokens `@theme` de v4
 
-### 🔲 Phase 6 — Replace Formspree with Resend *(BLOCKED)*
-> **Blocked by:** need destination email address (where leads should land)
+### 🔲 Fase 6 — Reemplazar Formspree con Resend *(BLOQUEADO)*
+> **Bloqueado por:** necesitamos la dirección de correo destino (a dónde llegan los leads)
 
-Architecture change required — the site is currently fully static. Resend requires a secret API key, so form submissions must go through a server-side function:
+Cambio de arquitectura requerido — el sitio actualmente es completamente estático. Resend necesita una clave de API secreta, por lo que los envíos de formularios deben pasar por una función del lado del servidor:
 
-1. Add `@astrojs/cloudflare` adapter
-2. Change `astro.config.mjs` → `output: 'hybrid'`
-3. Create `src/pages/api/contact.ts` — handles contact form
-4. Create `src/pages/api/discount.ts` — handles popup 20% OFF form
-5. Both endpoints call Resend SDK with the lead data
-6. Update `FormsContact.astro` and `Popup.tsx` to POST to the new endpoints
-7. Add `RESEND_API_KEY` to Cloudflare Pages environment variables
-8. Set up Resend account, verify domain `mrsirenescleaning.com`, get API key
+1. Agregar el adaptador `@astrojs/cloudflare`
+2. Cambiar `astro.config.mjs` → `output: 'hybrid'`
+3. Crear `src/pages/api/contact.ts` — procesa el formulario de contacto
+4. Crear `src/pages/api/discount.ts` — procesa el formulario del popup 20% OFF
+5. Ambos endpoints llaman al SDK de Resend con los datos del lead
+6. Actualizar `FormsContact.astro` y `Popup.tsx` para hacer POST a los nuevos endpoints
+7. Agregar `RESEND_API_KEY` a las variables de entorno en Cloudflare Pages
+8. Configurar cuenta en Resend, verificar el dominio `mrsirenescleaning.com`, obtener la API key
 
-**Current Formspree endpoints (keep active until Resend is live):**
-- Popup discount: `https://formspree.io/f/movqlyww`
-- Contact form: `https://formspree.io/f/xwpkjavo`
-
----
-
-## Future Improvements
-
-These are not part of the current update cycle but are worth considering:
-
-### Content
-- [ ] Add real social media URLs (Facebook, Instagram, TikTok, Yelp) — currently all point to `#contact`
-- [ ] Update stats in `Numeros.astro` when needed (currently: 5.0 stars, +2100 services, +8 years)
-- [ ] Add more customer reviews to `Reviews.astro`
-- [ ] Replace `/public/1.png` (contact section image) with a proper WebP file with a descriptive name
-
-### Features
-- [ ] Add a booking/scheduling page or integrate a calendar widget
-- [ ] Add a gallery or before/after section
-- [ ] Structured data (JSON-LD) for local business SEO — important for a local service business
-- [ ] Add Google Analytics or Cloudflare Web Analytics
-- [ ] Form confirmation page instead of `alert()` popups
-
-### Technical
-- [ ] Add `<meta name="twitter:card">` tags for Twitter/X share previews
-- [ ] Explore `@astrojs/image` for automatic image optimization pipeline
-- [ ] Add a `404.html` custom error page for Cloudflare Pages
+**Endpoints actuales de Formspree (mantener activos hasta que Resend esté operativo):**
+- Popup descuento: `https://formspree.io/f/movqlyww`
+- Formulario de contacto: `https://formspree.io/f/xwpkjavo`
 
 ---
 
-## Technical Decisions Log
+## Mejoras futuras
 
-| Date | Decision | Reason |
+No forman parte del ciclo de actualización actual, pero vale la pena considerar:
+
+### Contenido
+- [ ] Agregar URLs reales de redes sociales (Facebook, Instagram, TikTok, Yelp) — actualmente todas apuntan a `#contact`
+- [ ] Actualizar estadísticas en `Numeros.astro` cuando sea necesario (actualmente: 5.0 estrellas, +2100 servicios, +8 años)
+- [ ] Agregar más reseñas de clientes a `Reviews.astro`
+- [ ] Reemplazar `/public/1.png` (imagen de la sección de contacto) por un archivo WebP con nombre descriptivo
+
+### Funcionalidades
+- [ ] Agregar una página o widget de reservas/agenda
+- [ ] Agregar una sección de galería o antes/después
+- [ ] Datos estructurados (JSON-LD) para SEO local — importante para un negocio de servicios locales
+- [ ] Integrar Google Analytics o Cloudflare Web Analytics
+- [ ] Páginas de confirmación en lugar de popups con `alert()`
+
+### Técnico
+- [ ] Agregar tags `<meta name="twitter:card">` para previsualizaciones en Twitter/X
+- [ ] Explorar `@astrojs/image` para optimización automática de imágenes
+- [ ] Agregar página de error 404 personalizada para Cloudflare Pages
+
+---
+
+## Registro de decisiones técnicas
+
+| Fecha | Decisión | Motivo |
 |---|---|---|
-| 2026-05-04 | Switched to pnpm | Faster installs, strict dependency resolution, better monorepo support if needed later |
-| 2026-05-04 | Node 18 → 22 LTS | Node 18 reached EOL April 2025 |
-| 2026-05-04 | Dark mode removed | `SwitchTheme.astro` was built but never integrated — design direction moved away from it |
-| 2026-05-04 | Formspree → Resend | More control over email templates, no third-party form limits, own domain sending |
-| 2026-05-04 | Tailwind v3 → v4 | v3 deprecated, v4 has better performance and native CSS features |
-| 2026-05-04 | Social links kept as `#contact` | Real URLs not yet provided — noted as future task |
+| 2026-05-04 | Cambio a pnpm | Instalaciones más rápidas, resolución estricta de dependencias, mejor soporte para monorepo si se necesita en el futuro |
+| 2026-05-04 | Node 18 → 22 LTS | Node 18 llegó a su fin de vida en abril de 2025 |
+| 2026-05-04 | Modo oscuro eliminado | `SwitchTheme.astro` estaba construido pero nunca integrado — la dirección de diseño se alejó de esa funcionalidad |
+| 2026-05-04 | Formspree → Resend | Mayor control sobre plantillas de correo, sin límites de terceros, envío desde dominio propio |
+| 2026-05-04 | Tailwind v3 → v4 | v3 en deprecación, v4 tiene mejor rendimiento y usa características nativas de CSS |
+| 2026-05-04 | Links sociales mantenidos como `#contact` | URLs reales no proporcionadas aún — registrado como tarea futura |
 
 ---
 
-## Domain & Hosting Notes
+## Notas de dominio y hosting
 
-- **Production domain:** `mrsirenescleaning.com` (managed in Cloudflare DNS)
-- **Alternate domain:** `irenescleaning.com` — appears in old `og:url` meta tag, likely an older domain. Verify if it redirects to the main domain.
-- **Sitemap:** auto-generated by `@astrojs/sitemap` at `/sitemap-index.xml`
-- **robots.txt:** generated dynamically at `src/pages/robots.txt.ts`, allows all crawlers
+- **Dominio de producción:** `mrsirenescleaning.com` (gestionado en Cloudflare DNS)
+- **Dominio alternativo:** `irenescleaning.com` — aparece en el antiguo meta tag `og:url`, probablemente un dominio anterior. Verificar si redirige al dominio principal.
+- **Sitemap:** generado automáticamente por `@astrojs/sitemap` en `/sitemap-index.xml`
+- **robots.txt:** generado dinámicamente en `src/pages/robots.txt.ts`, permite todos los crawlers

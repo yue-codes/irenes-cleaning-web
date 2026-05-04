@@ -1,102 +1,102 @@
-# Irene's Cleaning — Official Website
+# Irene's Cleaning — Sitio Web Oficial
 
-Professional cleaning service website for **Irene's Cleaning**, serving Jersey City and surrounding areas in New Jersey.
+Sitio web de servicio de limpieza profesional para **Irene's Cleaning**, con cobertura en Jersey City y áreas circundantes de New Jersey.
 
-**Live site:** [mrsirenescleaning.com](https://mrsirenescleaning.com)
+**Sitio en producción:** [mrsirenescleaning.com](https://mrsirenescleaning.com)
 
 ---
 
-## Tech Stack
+## Stack tecnológico
 
-| Layer | Technology |
+| Capa | Tecnología |
 |---|---|
 | Framework | [Astro 5](https://astro.build) |
-| UI components | [Preact](https://preactjs.com) (not React) |
-| Styling | [Tailwind CSS](https://tailwindcss.com) |
-| Font | [Onest Variable](https://fontsource.org/fonts/onest) |
-| Deployment | [Cloudflare Pages](https://pages.cloudflare.com) |
-| Forms | Formspree → migrating to [Resend](https://resend.com) |
-| Package manager | [pnpm](https://pnpm.io) |
+| Componentes interactivos | [Preact](https://preactjs.com) (no React) |
+| Estilos | [Tailwind CSS](https://tailwindcss.com) |
+| Fuente tipográfica | [Onest Variable](https://fontsource.org/fonts/onest) |
+| Despliegue | [Cloudflare Pages](https://pages.cloudflare.com) |
+| Formularios | Formspree → migrando a [Resend](https://resend.com) |
+| Gestor de paquetes | [pnpm](https://pnpm.io) |
 
 ---
 
-## Prerequisites
+## Requisitos previos
 
 - Node.js >= 22
-- pnpm >= 10 — install with `npm i -g pnpm`
+- pnpm >= 10 — instalar con `npm i -g pnpm`
 
 ---
 
-## Getting Started
+## Inicio rápido
 
 ```bash
 pnpm install
 pnpm dev       # http://localhost:4321
 ```
 
-## Available Commands
+## Comandos disponibles
 
 ```bash
-pnpm dev          # Development server with hot reload
-pnpm build        # Production build → ./dist/
-pnpm preview      # Preview production build locally
-pnpm astro check  # TypeScript diagnostics
+pnpm dev          # Servidor de desarrollo con hot reload
+pnpm build        # Build de producción → ./dist/
+pnpm preview      # Previsualizar el build de producción en local
+pnpm astro check  # Diagnóstico de TypeScript
 ```
 
 ---
 
-## Project Structure
+## Estructura del proyecto
 
 ```
 src/
-├── components/       # UI components (.astro + .tsx for interactive)
-│   ├── icons/        # SVG icon components
-│   ├── hooks/        # Preact hooks (useProgressiveNumber)
-│   └── shared/       # Generic layout helpers (Container, Paragraph)
+├── components/       # Componentes de UI (.astro + .tsx para los interactivos)
+│   ├── icons/        # Componentes de iconos SVG
+│   ├── hooks/        # Hooks de Preact (useProgressiveNumber)
+│   └── shared/       # Helpers genéricos de maquetación (Container, Paragraph)
 ├── layouts/
-│   └── Layout.astro  # Root HTML shell, meta tags, global styles
+│   └── Layout.astro  # Shell HTML raíz, meta tags, estilos globales
 ├── pages/
-│   ├── index.astro   # Single-page site entry point
-│   └── robots.txt.ts # Dynamic robots.txt
+│   ├── index.astro   # Punto de entrada del sitio (una sola página)
+│   └── robots.txt.ts # robots.txt generado dinámicamente
 └── utils/
-    └── data.ts       # Services content data
+    └── data.ts       # Contenido de los servicios
 ```
 
-Page sections render in this order:
+Las secciones de la página se renderizan en este orden:
 `Popup → Hero → Numeros → Reviews → Services → Bento → FormsContact → Footer`
 
 ---
 
-## Deployment
+## Despliegue
 
-Hosted on **Cloudflare Pages** with automatic deployments:
-- Every push to `main` triggers a production build
-- Build command: `pnpm build`
-- Node.js version: 22
+Alojado en **Cloudflare Pages** con despliegues automáticos:
+- Cada push a `main` dispara un build de producción
+- Comando de build: `pnpm build`
+- Versión de Node.js: 22
 
-**Never push directly to `main` without verifying `pnpm build` passes locally.**
+**Nunca hacer push directo a `main` sin verificar antes que `pnpm build` pasa en local.**
 
 ---
 
-## Environment Variables
+## Variables de entorno
 
-| Variable | Where | Purpose |
+| Variable | Dónde | Propósito |
 |---|---|---|
-| `PNPM_VERSION` | Cloudflare Pages | Pins pnpm version for CI builds |
-| `RESEND_API_KEY` | Cloudflare Pages | Email sending via Resend *(pending setup)* |
+| `PNPM_VERSION` | Cloudflare Pages | Fija la versión de pnpm en los builds de CI |
+| `RESEND_API_KEY` | Cloudflare Pages | Envío de correos via Resend *(pendiente de configurar)* |
 
 ---
 
-## External Services
+## Servicios externos
 
-| Service | Purpose | Notes |
+| Servicio | Propósito | Notas |
 |---|---|---|
-| Cloudflare Pages | Hosting + CDN | Auto-deploy from GitHub |
-| Formspree | Form submissions | Being replaced by Resend |
-| jsDelivr CDN | keen-slider library | Being moved to npm package |
+| Cloudflare Pages | Hosting + CDN | Auto-deploy desde GitHub |
+| Formspree | Envío de formularios | En proceso de reemplazar con Resend |
+| jsDelivr CDN | Librería keen-slider | En proceso de mover a paquete npm |
 
 ---
 
-## Development Notes
+## Notas de desarrollo
 
-See [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md) for the full update roadmap, technical decisions, and future task list.
+Ver [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md) para el roadmap completo de actualización, decisiones técnicas y lista de tareas futuras.
