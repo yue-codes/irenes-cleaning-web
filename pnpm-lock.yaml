@@ -32,10 +32,6 @@ importers:
       tailwindcss-animations:
         specifier: ^2.0.0
         version: 2.0.0
-    devDependencies:
-      tailwindcss-animated:
-        specifier: ^1.1.2
-        version: 1.1.2(tailwindcss@3.4.19(yaml@2.8.4))
 
 packages:
 
@@ -1920,11 +1916,6 @@ packages:
     resolution: {integrity: sha512-XDpWUOPC6FEibaLzjfe0ucaV0YrOjYotGJO1WpF0Zd+n6ZGEQUsSugaoLq9QkEZtAfQIxT42UChcssDVPP3+/w==}
     engines: {node: '>=16'}
     hasBin: true
-
-  tailwindcss-animated@1.1.2:
-    resolution: {integrity: sha512-SI4owS5ojserhgEYIZA/uFVdNjU2GMB2P3sjtjmFA52VxoUi+Hht6oR5+RdT+CxrX9cNNYEa+vbTWHvN9zbj3w==}
-    peerDependencies:
-      tailwindcss: '>=3.1.0'
 
   tailwindcss-animations@2.0.0:
     resolution: {integrity: sha512-YLdhPiQeDtpnqWd0J70rvy08MDbsq+BBLrzMmPR1Pe6MJDFYDuk4CYGI14GVgj7xRBGkByzp/rAfBcUWD7zpng==}
@@ -4337,10 +4328,6 @@ snapshots:
       csso: 5.0.5
       picocolors: 1.1.1
       sax: 1.6.0
-
-  tailwindcss-animated@1.1.2(tailwindcss@3.4.19(yaml@2.8.4)):
-    dependencies:
-      tailwindcss: 3.4.19(yaml@2.8.4)
 
   tailwindcss-animations@2.0.0:
     dependencies:

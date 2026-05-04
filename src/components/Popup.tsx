@@ -7,10 +7,13 @@ const Popup = () => {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    setIsVisible(true);
+    if (sessionStorage.getItem("popup_shown")) return;
+    const timer = setTimeout(() => setIsVisible(true), 2000);
+    return () => clearTimeout(timer);
   }, []);
 
   const closePopup = () => {
+    sessionStorage.setItem("popup_shown", "1");
     setIsVisible(false);
   };
 

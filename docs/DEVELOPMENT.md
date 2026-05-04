@@ -29,7 +29,7 @@ Archivos con markup inválido que necesitan corrección:
 - `Hero.astro` frontmatter — import de `Numeros` sin usar
 - `Hamburgermenu.tsx` — ítems del menú en español en un sitio en inglés ("Inicio", "Servicios", "ID/About")
 
-### 🔲 Fase 3 — Correcciones de SEO y limpieza de código muerto
+### ✅ Fase 3 — Correcciones de SEO y limpieza de código muerto
 SEO:
 - `Layout.astro` `og:url` apunta al dominio incorrecto (`irenescleaning.com` → `mrsirenescleaning.com`)
 - `Layout.astro` `og:image` es una ruta relativa — debe ser una URL absoluta para que funcionen las previsualizaciones en redes sociales
