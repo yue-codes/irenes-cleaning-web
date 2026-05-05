@@ -26,13 +26,23 @@ Sitio de una sola página (`src/pages/index.astro`) que compone todas las seccio
 
 **Los datos** están en `src/utils/data.ts` — exporta el array `services` usado por `Services.astro`.
 
-**Los formularios** hacen POST a endpoints API internos que envían email vía Resend y notificación vía Telegram:
-- Popup (descuento 20%): `POST /api/discount` → `src/pages/api/discount.ts`
-- Formulario de contacto: `POST /api/contact` → `src/pages/api/contact.ts`
+**Los formularios** hacen POST a Cloudflare Pages Functions que envían email vía Resend y notificación vía Telegram:
+- Popup y Hero (descuento 20%): `POST /api/discount` → `functions/api/discount.ts`
+- Formulario de contacto: `POST /api/contact` → `functions/api/contact.ts`
 
-Variables de entorno requeridas (ver `.env.example`): `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_TO_EMAIL`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`. En producción se configuran en el dashboard de Cloudflare Pages.
+Las functions viven en `functions/` (raíz del proyecto), no en `src/`. CF Pages las detecta y despliega automáticamente. El sitio es completamente estático — `@astrojs/cloudflare` sigue en `package.json` solo porque provee `wrangler` como dependencia transitiva para dev local.
 
-El adaptador `@astrojs/cloudflare` convierte los endpoints en Cloudflare Functions. En dev, el adapter emite warnings sobre bindings opcionales (IMAGES, SESSION) que son inofensivos — no están en uso.
+**Variables de entorno:** `wrangler.toml` gestiona las no-sensibles (`RESEND_FROM_EMAIL`, `RESEND_TO_EMAIL`). Las sensibles (`RESEND_API_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`) van como **Secrets** en el dashboard de CF Pages. Cuando hay `wrangler.toml`, el dashboard solo permite agregar Secrets — las vars planas deben estar en el archivo.
+
+**Dev local con functions:** usar dos terminales:
+```bash
+# Terminal 1
+pnpm dev          # Astro en localhost:4321
+
+# Terminal 2
+pnpm dev:pages    # wrangler proxy en localhost:8788 (usar este para probar formularios)
+```
+Variables locales para wrangler en `.dev.vars` (gitignored, mismo formato que `.env`).
 
 **Los estilos** son Tailwind CSS (migrando de v3 a v4). Las variables CSS personalizadas del tema están definidas en el `<style is:global>` de `Layout.astro`. El decorador pseudo-elemento `underline-pink` está duplicado en tres archivos — tenerlo en cuenta al refactorizar.
 

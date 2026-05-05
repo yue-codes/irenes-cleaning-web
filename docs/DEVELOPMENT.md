@@ -64,22 +64,29 @@ Cambios aplicados:
 
 ### ✅ Fase 6 — Reemplazar Formspree con Resend + notificaciones Telegram
 
-Cambio de arquitectura: el sitio pasó de completamente estático a estático con endpoints server-side (Cloudflare Functions).
+El sitio sigue siendo completamente estático. Los formularios se procesan mediante **Cloudflare Pages Functions** (`functions/api/`), que CF Pages detecta y despliega automáticamente junto con los assets estáticos.
 
 Cambios aplicados:
-- Instalado `@astrojs/cloudflare` — adapter que convierte los endpoints en Cloudflare Functions
-- `astro.config.mjs`: agregado `adapter: cloudflare()` (sin `output` explícito — en Astro 6 el default `static` ya soporta rutas server-side con `prerender = false`)
-- Creado `src/pages/api/contact.ts` — procesa el formulario de contacto
-- Creado `src/pages/api/discount.ts` — procesa el popup del 20% OFF
-- Ambos endpoints llaman a Resend y Telegram en paralelo (`Promise.all`) — cero impacto en latencia
-- `FormsContact.astro`: `action` cambiado a `/api/contact`
-- `Popup.tsx`: `action` cambiado a `/api/discount`
-- Creado `.env.example` con las variables requeridas
+- Creado `functions/api/contact.ts` — procesa el formulario de contacto
+- Creado `functions/api/discount.ts` — procesa popup 20% OFF y form del hero
+- Ambas functions llaman a Resend y Telegram en paralelo (`Promise.all`)
+- `FormsContact.astro`: `action` → `/api/contact`
+- `Popup.tsx` y `FormsDescuento.astro`: `action` → `/api/discount`
+- `FormsDescuento.astro`: restyling del form del hero (fondo blanco, sin barra rosa)
+- Creado `wrangler.toml` con `pages_build_output_dir = "dist"` y vars no-sensibles
+- Creado `.env.example` y `.dev.vars` (gitignored) para desarrollo local
 
-Configuración de Resend: actualmente usando `onboarding@resend.dev` (sin dominio verificado). Suficiente para producción inicial; verificar `mrsirenescleaning.com` en Resend cuando se quiera enviar desde el dominio propio.
+**Variables:**
+- `wrangler.toml [vars]`: `RESEND_FROM_EMAIL`, `RESEND_TO_EMAIL`
+- CF Pages Secrets (dashboard): `RESEND_API_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`
+- Nota: con `wrangler.toml` presente, CF Pages solo permite agregar Secrets via dashboard — las vars planas DEBEN ir en el archivo
 
-**Variables de entorno a configurar en Cloudflare Pages dashboard:**
-`RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_TO_EMAIL`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`
+**Dev local:** `pnpm dev` (UI) + `pnpm dev:pages` (wrangler proxy en :8788 con functions). Ver CLAUDE.md para detalle.
+
+Configuración de Resend: usando `onboarding@resend.dev`. Verificar `mrsirenescleaning.com` en Resend cuando se quiera enviar desde dominio propio.
+
+**Lección aprendida — CF Pages + Cloudflare adapter:**
+El adapter `@astrojs/cloudflare` genera `dist/server/` + `dist/client/` que el pipeline de GitHub integration de CF Pages no despliega correctamente como Functions. La solución correcta es `functions/` en la raíz del proyecto — CF Pages lo detecta nativamente sin ningún adapter.
 
 ---
 
