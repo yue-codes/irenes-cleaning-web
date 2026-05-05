@@ -1,2 +1,6 @@
 name = "irenes-cleaning-web"
 pages_build_output_dir = "dist"
+
+[vars]
+RESEND_FROM_EMAIL = "onboarding@resend.dev"
+RESEND_TO_EMAIL = "yue.dev@pm.me"
