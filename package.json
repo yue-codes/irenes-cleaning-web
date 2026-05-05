@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "dev:pages": "wrangler pages dev --proxy 4321 --compatibility-date 2024-04-01",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
