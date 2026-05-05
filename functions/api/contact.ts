@@ -1,17 +1,10 @@
-export const prerender = false;
-
-import type { APIRoute } from 'astro';
-
-export const POST: APIRoute = async ({ request }) => {
+export async function onRequestPost({ request, env }: any) {
   const formData = await request.formData();
   const name = formData.get('name')?.toString() ?? '';
   const phone = formData.get('phone')?.toString() ?? '';
-
-  const resendKey = import.meta.env.RESEND_API_KEY;
-  const from = import.meta.env.RESEND_FROM_EMAIL;
-  const to = import.meta.env.RESEND_TO_EMAIL;
-  const tgToken = import.meta.env.TELEGRAM_BOT_TOKEN;
-  const tgChatId = import.meta.env.TELEGRAM_CHAT_ID;
+  const postalCode = formData.get('postal_code')?.toString() ?? '';
+  const service = formData.get('service')?.toString() ?? '';
+  const description = formData.get('description')?.toString() ?? '';
 
   const fecha = new Date().toLocaleString('es-MX', {
     timeZone: 'America/Mexico_City',
@@ -19,29 +12,33 @@ export const POST: APIRoute = async ({ request }) => {
     timeStyle: 'short',
   });
 
-  const origen = name ? 'Popup' : 'Hero';
-
   const emailText = [
     "━━━━━━━━━━━━━━━━━━━━━━━━",
-    "🎉 NUEVO LEAD — DESCUENTO 20% OFF",
+    "🧹 NUEVA SOLICITUD DE SERVICIO",
     "   Irene's Cleaning — mrsirenescleaning.com",
     "━━━━━━━━━━━━━━━━━━━━━━━━",
     "",
-    ...(name ? [`👤 Nombre    ${name}`] : []),
-    `📞 Teléfono  ${phone}`,
-    `📌 Origen    ${origen}`,
+    `👤 Nombre        ${name}`,
+    `📞 Teléfono      ${phone}`,
+    `📍 Código postal ${postalCode}`,
+    `🏠 Servicio      ${service}`,
+    "",
+    "💬 Mensaje:",
+    `   ${description}`,
     "",
     `📅 ${fecha}`,
     "━━━━━━━━━━━━━━━━━━━━━━━━",
   ].join("\n");
 
   const telegramText = [
-    "🎉 *Nuevo lead — 20% OFF*",
+    "🧹 *Nueva solicitud de servicio*",
     "🌐 _mrsirenescleaning.com_",
     "",
-    ...(name ? [`👤 *Nombre:* ${name}`] : []),
+    `👤 *Nombre:* ${name}`,
     `📞 *Teléfono:* ${phone}`,
-    `📌 *Origen:* ${origen}`,
+    `📍 *Código postal:* ${postalCode}`,
+    `🏠 *Servicio:* ${service}`,
+    `💬 *Mensaje:* ${description}`,
     "",
     `📅 _${fecha}_`,
   ].join("\n");
@@ -51,21 +48,21 @@ export const POST: APIRoute = async ({ request }) => {
       fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${resendKey}`,
+          Authorization: `Bearer ${env.RESEND_API_KEY}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from,
-          to,
-          subject: `🎉 Nuevo lead 20% OFF${name ? ` — ${name}` : ''} — Irene's Cleaning`,
+          from: env.RESEND_FROM_EMAIL,
+          to: env.RESEND_TO_EMAIL,
+          subject: `🧹 Nueva solicitud de ${name} — Irene's Cleaning`,
           text: emailText,
         }),
       }),
-      fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
+      fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          chat_id: tgChatId,
+          chat_id: env.TELEGRAM_CHAT_ID,
           text: telegramText,
           parse_mode: "Markdown",
         }),
@@ -82,4 +79,4 @@ export const POST: APIRoute = async ({ request }) => {
       headers: { "Content-Type": "application/json" },
     });
   }
-};
+}
