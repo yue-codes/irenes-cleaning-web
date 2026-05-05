@@ -85,8 +85,13 @@ Cambios aplicados:
 
 Configuración de Resend: usando `onboarding@resend.dev`. Verificar `mrsirenescleaning.com` en Resend cuando se quiera enviar desde dominio propio.
 
-**Lección aprendida — CF Pages + Cloudflare adapter:**
-El adapter `@astrojs/cloudflare` genera `dist/server/` + `dist/client/` que el pipeline de GitHub integration de CF Pages no despliega correctamente como Functions. La solución correcta es `functions/` en la raíz del proyecto — CF Pages lo detecta nativamente sin ningún adapter.
+**Lecciones aprendidas:**
+- El adapter `@astrojs/cloudflare` genera `dist/server/` + `dist/client/` que el pipeline de GitHub integration de CF Pages no despliega correctamente como Functions. La solución correcta es `functions/` en la raíz del proyecto.
+- `@astrojs/cloudflare@13.3.1` + `wrangler@4.87` son incompatibles: el adapter genera un binding `ASSETS` que wrangler ahora reserva. No activar el adapter en `astro.config.mjs` hasta que se corrija. Esto impide que `pnpm dev` sirva rutas API — usar `pnpm dev:pages` para probar formularios localmente.
+- Con `wrangler.toml` en el proyecto, CF Pages gestiona vars via archivo. El dashboard solo acepta Secrets. Las vars planas no-sensibles deben estar en `wrangler.toml [vars]`.
+
+**Seguridad del bot de Telegram:**
+El bot está protegido: el token es un Secret en CF Pages (no en el código ni en GitHub), y solo el `CHAT_ID` configurado recibe mensajes. El único riesgo es spam en los endpoints públicos — documentado en la sección anti-spam de mejoras futuras.
 
 ---
 
@@ -135,6 +140,8 @@ La validación actual es solo client-side (JS del navegador) — un bot que haga
 | 2026-05-04 | Links sociales mantenidos como `#contact` | URLs reales no proporcionadas aún — registrado como tarea futura |
 | 2026-05-04 | Resend con `onboarding@resend.dev` | Dominio propio no verificado aún — suficiente para producción inicial |
 | 2026-05-04 | Validación anti-spam solo client-side | Cubre casos manuales básicos; mejoras server-side documentadas para futuro |
+| 2026-05-05 | `functions/` en lugar de `src/pages/api/` | Adapter `@astrojs/cloudflare` incompatible con CF Pages GitHub integration y con wrangler v4.87 |
+| 2026-05-05 | Bot de Telegram para notificaciones de leads | Tiempo real, gratis, sin configuración adicional — token guardado como Secret en CF Pages |
 
 ---
 
