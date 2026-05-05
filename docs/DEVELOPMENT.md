@@ -62,23 +62,24 @@ Cambios aplicados:
 - `src/styles/global.css`: `@import "tailwindcss"` + `@custom-variant dark` + `@layer utilities` con las clases custom (`bg-body`, `text-heading-*`, etc.) correctamente mapeadas a las variables CSS del tema
 - `Bento.astro`: corregido `transition-scale` (inválido) → `transition-transform` en los 4 fondos de imagen
 
-### 🔲 Fase 6 — Reemplazar Formspree con Resend *(BLOQUEADO)*
-> **Bloqueado por:** necesitamos la dirección de correo destino (a dónde llegan los leads)
+### ✅ Fase 6 — Reemplazar Formspree con Resend + notificaciones Telegram
 
-Cambio de arquitectura requerido — el sitio actualmente es completamente estático. Resend necesita una clave de API secreta, por lo que los envíos de formularios deben pasar por una función del lado del servidor:
+Cambio de arquitectura: el sitio pasó de completamente estático a estático con endpoints server-side (Cloudflare Functions).
 
-1. Agregar el adaptador `@astrojs/cloudflare`
-2. Cambiar `astro.config.mjs` → `output: 'hybrid'`
-3. Crear `src/pages/api/contact.ts` — procesa el formulario de contacto
-4. Crear `src/pages/api/discount.ts` — procesa el formulario del popup 20% OFF
-5. Ambos endpoints llaman al SDK de Resend con los datos del lead
-6. Actualizar `FormsContact.astro` y `Popup.tsx` para hacer POST a los nuevos endpoints
-7. Agregar `RESEND_API_KEY` a las variables de entorno en Cloudflare Pages
-8. Configurar cuenta en Resend, verificar el dominio `mrsirenescleaning.com`, obtener la API key
+Cambios aplicados:
+- Instalado `@astrojs/cloudflare` — adapter que convierte los endpoints en Cloudflare Functions
+- `astro.config.mjs`: agregado `adapter: cloudflare()` (sin `output` explícito — en Astro 6 el default `static` ya soporta rutas server-side con `prerender = false`)
+- Creado `src/pages/api/contact.ts` — procesa el formulario de contacto
+- Creado `src/pages/api/discount.ts` — procesa el popup del 20% OFF
+- Ambos endpoints llaman a Resend y Telegram en paralelo (`Promise.all`) — cero impacto en latencia
+- `FormsContact.astro`: `action` cambiado a `/api/contact`
+- `Popup.tsx`: `action` cambiado a `/api/discount`
+- Creado `.env.example` con las variables requeridas
 
-**Endpoints actuales de Formspree (mantener activos hasta que Resend esté operativo):**
-- Popup descuento: `https://formspree.io/f/movqlyww`
-- Formulario de contacto: `https://formspree.io/f/xwpkjavo`
+Configuración de Resend: actualmente usando `onboarding@resend.dev` (sin dominio verificado). Suficiente para producción inicial; verificar `mrsirenescleaning.com` en Resend cuando se quiera enviar desde el dominio propio.
+
+**Variables de entorno a configurar en Cloudflare Pages dashboard:**
+`RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_TO_EMAIL`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`
 
 ---
 
@@ -99,10 +100,19 @@ No forman parte del ciclo de actualización actual, pero vale la pena considerar
 - [ ] Integrar Google Analytics o Cloudflare Web Analytics
 - [ ] Páginas de confirmación en lugar de popups con `alert()`
 
+### Anti-spam en formularios
+La validación actual es solo client-side (JS del navegador) — un bot que haga POST directo a `/api/discount` o `/api/contact` la salta por completo. Mejoras pendientes por orden de prioridad:
+
+- [ ] **Honeypot** — agregar un campo oculto con CSS (`display:none`) en los tres formularios. Los bots lo llenan, los humanos no. Si llega con valor → descartar silenciosamente en el servidor. Costo: cero, implementación: 15 min.
+- [ ] **Validación server-side** — replicar en los endpoints API las mismas reglas que ya existen en el frontend: formato 10 dígitos, sin repeticiones excesivas, sin secuencias. Actualmente solo se valida en el navegador.
+- [ ] **Cloudflare Turnstile** — CAPTCHA invisible de Cloudflare, gratis, sin fricciones para el usuario. Requiere agregar el widget al HTML y verificar el token en el servidor con la API de Turnstile.
+- [ ] **Rate limiting por IP** — máx. N envíos por ventana de tiempo. Se puede implementar con Cloudflare Workers KV o con las reglas de Rate Limiting del dashboard de Cloudflare Pages (sin código).
+
 ### Técnico
 - [ ] Agregar tags `<meta name="twitter:card">` para previsualizaciones en Twitter/X
 - [ ] Explorar `@astrojs/image` para optimización automática de imágenes
 - [ ] Agregar página de error 404 personalizada para Cloudflare Pages
+- [ ] Verificar dominio `mrsirenescleaning.com` en Resend para enviar desde el dominio propio en lugar de `onboarding@resend.dev`
 
 ---
 
@@ -113,9 +123,11 @@ No forman parte del ciclo de actualización actual, pero vale la pena considerar
 | 2026-05-04 | Cambio a pnpm | Instalaciones más rápidas, resolución estricta de dependencias, mejor soporte para monorepo si se necesita en el futuro |
 | 2026-05-04 | Node 18 → 22 LTS | Node 18 llegó a su fin de vida en abril de 2025 |
 | 2026-05-04 | Modo oscuro eliminado | `SwitchTheme.astro` estaba construido pero nunca integrado — la dirección de diseño se alejó de esa funcionalidad |
-| 2026-05-04 | Formspree → Resend | Mayor control sobre plantillas de correo, sin límites de terceros, envío desde dominio propio |
+| 2026-05-04 | Formspree → Resend + Telegram | Mayor control sobre correos, notificaciones instantáneas al negocio, sin límites de terceros |
 | 2026-05-04 | Tailwind v3 → v4 | v3 en deprecación, v4 tiene mejor rendimiento y usa características nativas de CSS |
 | 2026-05-04 | Links sociales mantenidos como `#contact` | URLs reales no proporcionadas aún — registrado como tarea futura |
+| 2026-05-04 | Resend con `onboarding@resend.dev` | Dominio propio no verificado aún — suficiente para producción inicial |
+| 2026-05-04 | Validación anti-spam solo client-side | Cubre casos manuales básicos; mejoras server-side documentadas para futuro |
 
 ---
 

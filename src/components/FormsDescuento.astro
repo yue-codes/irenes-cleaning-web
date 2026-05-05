@@ -1,7 +1,6 @@
-<form id="20% off" action="https://formspree.io/f/movqlyww" method="POST" 
-    class="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-heading-3 shadow-lg shadow-box-shadow
-    border border-box-border bg-box-bg rounded-full ease-linear focus-within:bg-body  focus-within:border-primary bg-purple-100">
-    <span class="min-w-max pr-2 border-r border-box-border">
+<form id="hero-discount-form" action="/api/discount" method="POST"
+    class="py-1 pl-6 w-full pr-1 flex gap-3 items-center shadow-lg border border-white/20 bg-white rounded-full">
+    <span class="min-w-max pr-2 border-r border-gray-200 text-gray-400">
     <svg viewBox="0 0 24 24" 
     xmlns="http://www.w3.org/2000/svg" 
     width="24" 
@@ -25,7 +24,7 @@
       name="phone" 
       id="phone" 
       placeholder="Your number: 201-523-8741" 
-      class="w-full py-3 outline-none border-none bg-purple-100 focus:ring-0" 
+      class="w-full py-3 outline-none border-none bg-white text-gray-700 placeholder-gray-400 focus:ring-0"
       pattern="[0-9]*"
       maxlength="10"
       oninput="this.value = this.value.replace(/[^0-9]/g, '')"
@@ -41,7 +40,7 @@
   // Función para configurar el comportamiento del formulario
   function setupKeenSlider() {
     // Obtiene el formulario por su ID
-    const form = document.getElementById('20% off');
+    const form = document.getElementById('hero-discount-form');
     if (form) {
       // Agrega un evento de envío al formulario
       form.addEventListener('submit', function(event) {

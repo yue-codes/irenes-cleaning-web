@@ -71,7 +71,7 @@ const Popup = () => {
           </p>
           <form
             id="20% off"
-            action="https://formspree.io/f/movqlyww"
+            action="/api/discount"
             method="POST"
             onSubmit={handleSubmit}
           >

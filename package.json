@@ -13,6 +13,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^13.3.1",
     "@astrojs/preact": "^5.1.2",
     "@astrojs/sitemap": "^3.7.2",
     "@fontsource-variable/onest": "^5.1.1",
@@ -25,6 +26,9 @@
     "onlyBuiltDependencies": [
       "esbuild",
       "sharp"
+    ],
+    "ignoredBuiltDependencies": [
+      "workerd"
     ]
   }
 }

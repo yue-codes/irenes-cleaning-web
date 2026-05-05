@@ -26,11 +26,13 @@ Sitio de una sola página (`src/pages/index.astro`) que compone todas las seccio
 
 **Los datos** están en `src/utils/data.ts` — exporta el array `services` usado por `Services.astro`.
 
-**Los formularios** hacen POST a Formspree (siendo reemplazados por Resend):
-- Popup: `https://formspree.io/f/movqlyww`
-- Contacto: `https://formspree.io/f/xwpkjavo`
+**Los formularios** hacen POST a endpoints API internos que envían email vía Resend y notificación vía Telegram:
+- Popup (descuento 20%): `POST /api/discount` → `src/pages/api/discount.ts`
+- Formulario de contacto: `POST /api/contact` → `src/pages/api/contact.ts`
 
-Cuando se implemente Resend, requerirá `output: 'hybrid'` en `astro.config.mjs`, el adaptador `@astrojs/cloudflare`, y endpoints API en `src/pages/api/`.
+Variables de entorno requeridas (ver `.env.example`): `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_TO_EMAIL`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`. En producción se configuran en el dashboard de Cloudflare Pages.
+
+El adaptador `@astrojs/cloudflare` convierte los endpoints en Cloudflare Functions. En dev, el adapter emite warnings sobre bindings opcionales (IMAGES, SESSION) que son inofensivos — no están en uso.
 
 **Los estilos** son Tailwind CSS (migrando de v3 a v4). Las variables CSS personalizadas del tema están definidas en el `<style is:global>` de `Layout.astro`. El decorador pseudo-elemento `underline-pink` está duplicado en tres archivos — tenerlo en cuenta al refactorizar.
 
@@ -41,7 +43,6 @@ Cuando se implemente Resend, requerirá `output: 'hybrid'` en `astro.config.mjs`
 - **`og:url`** debe ser `https://mrsirenescleaning.com` — actualmente apunta al dominio incorrecto `irenescleaning.com`
 - **`og:image`** debe ser una URL absoluta — actualmente es una ruta relativa, las previsualizaciones en redes sociales no funcionan
 - `Bento.astro` y `Services.astro` tienen el mismo `id="services"` — IDs duplicados rompen la navegación por anclas
-- `keen-slider` se carga via CDN en `Reviews.astro` — debería ser un paquete npm
 - Los links sociales en `FormsContact.astro` apuntan a `#contact` — URLs reales pendientes
 - `SwitchTheme.astro` — componente sin usar, pendiente de eliminar
 - `src/assets/astro.svg`, `src/assets/background.svg` — sobrantes del template de Astro, pendientes de eliminar
@@ -49,4 +50,3 @@ Cuando se implemente Resend, requerirá `output: 'hybrid'` en `astro.config.mjs`
 - `Hero.astro:36` — etiqueta `</form>` huérfana (HTML inválido)
 - `Footer.astro:28` — etiqueta `</svg>` huérfana (HTML inválido)
 - `Header.astro` — `<ul>` anidado dentro de `<ul>` (HTML inválido)
-- `Popup.tsx` — se muestra en cada carga de página sin retraso ni verificación de sessionStorage
