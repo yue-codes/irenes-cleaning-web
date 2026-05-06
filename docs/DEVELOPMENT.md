@@ -93,6 +93,26 @@ Configuración de Resend: usando `onboarding@resend.dev`. Verificar `mrsirenescl
 **Seguridad del bot de Telegram:**
 El bot está protegido: el token es un Secret en CF Pages (no en el código ni en GitHub), y solo el `CHAT_ID` configurado recibe mensajes. El único riesgo es spam en los endpoints públicos — documentado en la sección anti-spam de mejoras futuras.
 
+### ✅ Fase 7 — SEO profesional (2026-05-06)
+
+**Contexto:** posición media 23.8 en Google, 646K impresiones/mes, 73 clics/mes, CTR 1.1%. Competidor con el mismo nombre ("Irene's Cleaning") tiene GBP activo. Estrategia: SERP domination + ranking para términos comerciales locales.
+
+Cambios aplicados en `src/layouts/Layout.astro` y `src/pages/index.astro`:
+
+- **Meta title** — `"Mrs. Irene's Cleaning | Professional Cleaning Service in Jersey City & Hoboken, NJ"` (incluye "Mrs." para diferenciar del competidor, menciona ambas ciudades principales)
+- **Meta description** — reescrita con keywords de intención comercial + CTA
+- **Keywords** — actualizadas con términos reales de búsqueda local
+- **JSON-LD `CleaningService`** — schema.org con teléfono, áreas de servicio (Jersey City, Hoboken, Newark, Orange, Maplewood, Bayonne), catálogo de 5 servicios. Campo `sameAs: []` listo para agregar GBP y directorios cuando estén creados.
+- **Twitter Cards** — `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`
+- **Canonical tag** — `https://mrsirenescleaning.com`
+- **`og:site_name`** — corregido a "Mrs. Irene's Cleaning"
+- **Google Analytics 4** — instalado directo (sin GTM). Measurement ID: `G-XK8SFVYKBV`
+
+**Plan SEO completo** documentado en memoria del proyecto (`seo_plan.md`). Fases pendientes:
+- Fase 2: Google Business Profile como Service Area Business (usuario)
+- Fase 3: Directorios gratuitos — Yelp, Angi, Thumbtack, Bing Places, Apple Maps, Facebook (usuario)
+- Fase 4: Estructura H1/H2, FAQ section, contenido por ciudad (Claude)
+
 ---
 
 ## Mejoras futuras
@@ -108,8 +128,8 @@ No forman parte del ciclo de actualización actual, pero vale la pena considerar
 ### Funcionalidades
 - [ ] Agregar una página o widget de reservas/agenda
 - [ ] Agregar una sección de galería o antes/después
-- [ ] Datos estructurados (JSON-LD) para SEO local — importante para un negocio de servicios locales
-- [ ] Integrar Google Analytics o Cloudflare Web Analytics
+- [x] Datos estructurados (JSON-LD) para SEO local — implementado en Fase 7 (`CleaningService` schema)
+- [x] Integrar Google Analytics — GA4 instalado directo, Measurement ID: G-XK8SFVYKBV
 - [ ] Páginas de confirmación en lugar de popups con `alert()`
 
 ### Anti-spam en formularios
@@ -121,7 +141,7 @@ La validación actual es solo client-side (JS del navegador) — un bot que haga
 - [ ] **Rate limiting por IP** — máx. N envíos por ventana de tiempo. Se puede implementar con Cloudflare Workers KV o con las reglas de Rate Limiting del dashboard de Cloudflare Pages (sin código).
 
 ### Técnico
-- [ ] Agregar tags `<meta name="twitter:card">` para previsualizaciones en Twitter/X
+- [x] Agregar tags `<meta name="twitter:card">` — implementado en Fase 7
 - [ ] Explorar `@astrojs/image` para optimización automática de imágenes
 - [ ] Agregar página de error 404 personalizada para Cloudflare Pages
 - [ ] Verificar dominio `mrsirenescleaning.com` en Resend para enviar desde el dominio propio en lugar de `onboarding@resend.dev`
@@ -142,6 +162,8 @@ La validación actual es solo client-side (JS del navegador) — un bot que haga
 | 2026-05-04 | Validación anti-spam solo client-side | Cubre casos manuales básicos; mejoras server-side documentadas para futuro |
 | 2026-05-05 | `functions/` en lugar de `src/pages/api/` | Adapter `@astrojs/cloudflare` incompatible con CF Pages GitHub integration y con wrangler v4.87 |
 | 2026-05-05 | Bot de Telegram para notificaciones de leads | Tiempo real, gratis, sin configuración adicional — token guardado como Secret en CF Pages |
+| 2026-05-06 | GA4 directo en lugar de GTM | El negocio lo mantiene el dueño — GTM agrega complejidad innecesaria para un sitio de una sola página sin equipo de marketing |
+| 2026-05-06 | "Mrs. Irene's Cleaning" como marca oficial | Diferencia del competidor local con nombre similar. Usar siempre "Mrs." en title, GBP, directorios y redes sociales |
 
 ---
 
