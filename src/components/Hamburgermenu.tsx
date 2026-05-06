@@ -79,7 +79,7 @@ const HamburgerMenu = () => {
             </svg>
           </button>
 
-          <div class={`overflow-hidden transition-all duration-300 ${servicesOpen ? "max-h-96 mt-4" : "max-h-0"}`}>
+          <div class={`overflow-hidden transition-all duration-300 ${servicesOpen ? "max-h-[30rem] mt-4" : "max-h-0"}`}>
             <ul class="flex flex-col gap-3">
               {services.map((s) => (
                 <li key={s.href}>
@@ -88,12 +88,21 @@ const HamburgerMenu = () => {
                   </a>
                 </li>
               ))}
+              <li class="pt-1 border-t border-white/10">
+                <a href="/services" onClick={closeMenu} class="text-base text-purple-400 hover:text-white transition-colors font-medium">
+                  View All Services →
+                </a>
+              </li>
             </ul>
           </div>
         </div>
 
         <a href="/#about" onClick={closeMenu} class="text-2xl font-bold text-white hover:text-purple-400 transition-colors">
           About
+        </a>
+
+        <a href="/contact" onClick={closeMenu} class="text-2xl font-bold text-white hover:text-purple-400 transition-colors">
+          Contact
         </a>
       </nav>
 
