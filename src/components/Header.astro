@@ -1,6 +1,7 @@
 ---
 import ButtonContact from './ButtonContact.astro';
 import Hamburgermenu from './Hamburgermenu.tsx';
+import ServicesDropdown from './ServicesDropdown.tsx';
 ---
 
 <header id="header-nav" class="fixed inset-x-0 top-0 z-50 py-6 text-white">
@@ -9,19 +10,19 @@ import Hamburgermenu from './Hamburgermenu.tsx';
             <!-- logo -->
             <div class="min-w-max inline-flex relative">
                 <a href="/" class="relative flex items-center gap-3">
-                    <img src="logo1.webp" alt="Logo" class="h-auto w-16" />
+                    <img src="/logo1.webp" alt="Mrs. Irene's Cleaning logo" class="h-auto w-16" />
 
                     <div class="inline-flex text-lg font-semibold">
-                        Irene's Cleaning
+                        Mrs. Irene's Cleaning
                     </div>
                 </a>
             </div>
 
             <div data-nav-overlay aria-hidden="true" class="fixed hidden inset-0 lg:!hidden bg-box-bg opacity-50 backdrop-filter backdrop-blur-xl"></div>
-            <div data-navbar class="flex h-0 overflow-hidden lg:!h-auto lg:scale-y-100 duration-300 ease-linear flex-col gap-y-6 gap-x-4 lg:flex-row w-full lg:justify-between lg:items-center absolute lg:relative top-full lg:top-0 bg-transparent lg:bg-transparent border-x border-x-box-border lg:border-x-0">
+            <div data-navbar class="flex h-0 overflow-hidden lg:!h-auto lg:overflow-visible lg:scale-y-100 duration-300 ease-linear flex-col gap-y-6 gap-x-4 lg:flex-row w-full lg:justify-between lg:items-center absolute lg:relative top-full lg:top-0 bg-transparent lg:bg-transparent border-x border-x-box-border lg:border-x-0">
                 <ul class="border-t border-box-border lg:border-t-0 px-6 lg:px-0 pt-6 lg:pt-0 flex flex-col lg:flex-row gap-y-4 gap-x-3 text-lg w-full lg:justify-center lg:items-center">
                     <li><a href="/" class="text-lg">Home</a></li>
-                    <li><a href="#services" class="text-lg">Services</a></li>
+                    <ServicesDropdown client:load />
                     <li><a href="#about" class="text-lg">About</a></li>
                 </ul>
 

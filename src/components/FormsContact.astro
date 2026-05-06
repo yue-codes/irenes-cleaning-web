@@ -1,259 +1,194 @@
 ---
-import SocialPil from '../components/SocialPil.astro';
-import Gmail from '../components/icons/Gmail.astro';
-import Facebook from './icons/Facebook.astro';
-import Instagram from './icons/Instagram.astro';
-import Phone from './icons/Phone.astro';
-import Tiktok from './icons/Tiktok.astro';
-import Yelp from './icons/Yelp.astro';
 ---
 
-<section id="contact" class="relative flex flex-wrap lg:h-screen lg:items-center">
-  <div class="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
-    <div class="mx-auto max-w-lg text-center">
-      <h2 class="text-2xl font-bold sm:text-3xl text-heading-1">Let's get in touch</h2>
-      <p class="mt-4 text-heading-2">
-        Make it easy, make it quick. Mrs. Irene's Cleaning takes care of your space while you enjoy. Serving Jersey City, Hoboken, and surrounding NJ areas.
+<section id="contact">
+  <div class="grid lg:grid-cols-2">
+
+    <!-- Left: Purple info panel -->
+    <div class="relative bg-cover bg-center text-white px-8 py-16 lg:px-14 lg:py-24 flex flex-col justify-center" style="background-image: url('/bento4.webp')">
+      <div class="absolute inset-0 bg-purple-900/90"></div>
+      <div class="relative z-10 flex flex-col justify-center h-full">
+      <h2 class="text-3xl lg:text-4xl font-bold mb-4">Let's get in touch</h2>
+      <p class="text-purple-200 text-lg mb-12 leading-relaxed">
+        Ready for a cleaner home? Fill out the form and we'll get back to you within 24 hours with a free, no-obligation quote.
       </p>
+
+      <ul class="space-y-7">
+        <li class="flex items-start gap-4">
+          <span class="shrink-0 w-9 h-9 bg-purple-700 rounded-full flex items-center justify-center text-purple-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </span>
+          <div>
+            <p class="font-semibold">Free quote, no commitment</p>
+            <p class="text-purple-300 text-sm mt-0.5">We assess your needs and provide a detailed estimate at no cost.</p>
+          </div>
+        </li>
+        <li class="flex items-start gap-4">
+          <span class="shrink-0 w-9 h-9 bg-purple-700 rounded-full flex items-center justify-center text-purple-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </span>
+          <div>
+            <p class="font-semibold">Response within 24 hours</p>
+            <p class="text-purple-300 text-sm mt-0.5">We'll confirm your appointment and adapt to your schedule.</p>
+          </div>
+        </li>
+        <li class="flex items-start gap-4">
+          <span class="shrink-0 w-9 h-9 bg-purple-700 rounded-full flex items-center justify-center text-purple-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </span>
+          <div>
+            <p class="font-semibold">No upfront payment required</p>
+            <p class="text-purple-300 text-sm mt-0.5">Book now, pay after your cleaning is done.</p>
+          </div>
+        </li>
+        <li class="flex items-start gap-4">
+          <span class="shrink-0 w-9 h-9 bg-purple-700 rounded-full flex items-center justify-center text-purple-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </span>
+          <div>
+            <p class="font-semibold">Satisfaction guaranteed</p>
+            <p class="text-purple-300 text-sm mt-0.5">Not happy? We come back and make it right — or your money back.</p>
+          </div>
+        </li>
+        <li class="flex items-start gap-4">
+          <span class="shrink-0 w-9 h-9 bg-purple-700 rounded-full flex items-center justify-center text-purple-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </span>
+          <div>
+            <p class="font-semibold">Serving Jersey City, Hoboken & NJ</p>
+            <p class="text-purple-300 text-sm mt-0.5">Also covering Newark, Orange, Maplewood and surrounding areas.</p>
+          </div>
+        </li>
+      </ul>
+      </div>
     </div>
 
-    <form id="contact-form" action="/api/contact" method="POST" class="mx-auto mb-0 mt-8 max-w-md space-y-4">
-      <div>
-        <label for="name" class="sr-only">Name</label>
-        <div class="relative">
+    <!-- Right: Form -->
+    <div class="bg-white px-8 py-16 lg:px-14 lg:py-24 flex flex-col justify-center">
+      <h3 class="text-2xl font-bold text-gray-900 mb-2">Send us a message</h3>
+      <p class="text-gray-500 text-sm mb-8">Fill in the form and we'll get back to you shortly.</p>
+
+      <form id="contact-form" action="/api/contact" method="POST" class="space-y-5">
+
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-1.5">Full name</label>
           <input
             type="text"
             id="name"
             name="name"
-            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-            placeholder="Enter your name"
+            placeholder="Your name"
             required
+            class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
           />
         </div>
-      </div>
 
-      <div>
-        <label for="phone" class="sr-only">Phone</label>
-        <div class="relative">
+        <div>
+          <label for="phone" class="block text-sm font-medium text-gray-700 mb-1.5">Phone number</label>
           <input
             type="tel"
             id="phone"
             name="phone"
-            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
             placeholder="Your phone number"
             required
+            class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
           />
         </div>
-      </div>
 
-      <div>
-        <label for="postal-code" class="sr-only">Postal Code</label>
-        <div class="relative">
+        <div>
+          <label for="postal-code" class="block text-sm font-medium text-gray-700 mb-1.5">Postal code</label>
           <input
             type="text"
             id="postal-code"
             name="postal_code"
-            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
             placeholder="Your postal code"
             required
+            class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
           />
         </div>
-      </div>
 
-      <div class="text-heading-1">
-        <label class="sr-only">Service Type</label>
-        <div class="relative">
-          <div class="flex items-center space-x-4">
-            <label class="flex items-center">
-              <input type="radio" name="service" value="standard" class="mr-2" required />
-              Standard Service
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Service type</label>
+          <div class="flex flex-wrap gap-2">
+            <label class="cursor-pointer px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-600 has-[:checked]:bg-purple-600 has-[:checked]:text-white has-[:checked]:border-purple-600 transition-all">
+              <input type="radio" name="service" value="standard" class="sr-only" required /> Standard
             </label>
-            <label class="flex items-center">
-              <input type="radio" name="service" value="deep-clean" class="mr-2" required />
-              Deep Clean
+            <label class="cursor-pointer px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-600 has-[:checked]:bg-purple-600 has-[:checked]:text-white has-[:checked]:border-purple-600 transition-all">
+              <input type="radio" name="service" value="deep-clean" class="sr-only" /> Deep Clean
             </label>
-            <label class="flex items-center">
-              <input type="radio" name="service" value="custom" class="mr-2" required />
-              Custom
+            <label class="cursor-pointer px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-600 has-[:checked]:bg-purple-600 has-[:checked]:text-white has-[:checked]:border-purple-600 transition-all">
+              <input type="radio" name="service" value="move-in-out" class="sr-only" /> Move-In/Out
+            </label>
+            <label class="cursor-pointer px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-600 has-[:checked]:bg-purple-600 has-[:checked]:text-white has-[:checked]:border-purple-600 transition-all">
+              <input type="radio" name="service" value="airbnb" class="sr-only" /> Airbnb
+            </label>
+            <label class="cursor-pointer px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-600 has-[:checked]:bg-purple-600 has-[:checked]:text-white has-[:checked]:border-purple-600 transition-all">
+              <input type="radio" name="service" value="custom" class="sr-only" /> Custom
             </label>
           </div>
         </div>
-      </div>
 
-      <div>
-        <label for="description" class="sr-only">Description</label>
-        <div class="relative">
+        <div>
+          <label for="description" class="block text-sm font-medium text-gray-700 mb-1.5">Message <span class="text-gray-400 font-normal">(optional)</span></label>
           <textarea
             id="description"
             name="description"
-            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-            placeholder="Add a description"
-            required
+            rows="4"
+            placeholder="Tell us about your space or any special requests..."
+            class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition resize-none"
           ></textarea>
         </div>
-      </div>
 
-      <div class="flex justify-center">
         <button
           type="submit"
-          class="inline-block rounded-full bg-purple-500 px-20 py-3 text-sm font-medium text-white hover:bg-purple-700"
+          class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 rounded-xl transition-colors duration-200"
         >
-          Submit
+          Send Message
         </button>
-      </div>
 
-        <nav class="flex flex-wrap gap-x-4 gap-y-4 mt-8 justify-center">
-          <SocialPil href="#contact"
-            class={` 
-              border border-blue-400 rounded-full 
-              flex justify-center items-center gap-x-2 
-              py-2 px-4
-              transition 
-              hover:scale-110
-              bg-blue-400 hover:bg-blue-600
-            `}
-          >
-            <Facebook class="size-6" />
-            Facebook
-          </SocialPil>
+        <p class="text-center text-xs text-gray-400">We'll get back to you within 24 hours. No commitment required.</p>
+      </form>
+    </div>
 
-          <SocialPil href="#contact"
-            class={` 
-              border border-orange-400 rounded-full 
-              flex justify-center items-center gap-x-2 
-              py-2 px-4
-              transition 
-              hover:scale-110
-              bg-orange-400 hover:bg-orange-600
-            `}
-          >
-            <Instagram class="size-6" />
-            Instagram
-          </SocialPil>
-
-          <SocialPil href="#contact"
-            class={` 
-              border border-black rounded-full 
-              flex justify-center items-center gap-x-2 
-              py-2 px-4
-              transition 
-              hover:scale-110
-              bg-gray-700 hover:bg-gray-400
-              text-white
-            `}
-          >
-            <Tiktok class="size-6" />
-            Tiktok
-          </SocialPil>
-
-          <SocialPil href="#contact"
-            class={` 
-              border border-red-400 rounded-full 
-              flex justify-center items-center gap-x-2 
-              py-2 px-4
-              transition 
-              hover:scale-110
-              bg-red-400 hover:bg-red-600
-            `}
-          >
-            <Yelp class="size-6" />
-             Yelp
-          </SocialPil>
-
-          <SocialPil href="tel:+12015238741"
-            class={` 
-              border border-green-400 rounded-full 
-              flex justify-center items-center gap-x-2 
-              py-2 px-4
-              transition 
-              hover:scale-110
-              bg-green-400 hover:bg-green-600
-            `}
-          >
-
-            <Phone class="size-6" />
-            Phone
-          </SocialPil>
-
-          <SocialPil href="mailto:info@mrsirenescleaning.com  "
-            class={` 
-              border border-red-400 rounded-full 
-              flex justify-center items-center gap-x-2 
-              py-2 px-4
-              transition 
-              hover:scale-110
-              bg-red-400 hover:bg-red-600
-            `}
-          >
-            <Gmail class="size-6" />
-            E-mail
-          </SocialPil>
-
-        </nav>
-    </form>
   </div>
-
-  <div class="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2">
-    <img
-      alt=""
-      src="/1.png"
-      class="absolute inset-0 h-full w-full object-cover"
-    />
-  </div>
+</section>
 
 <script is:inline data-astro-rerun>
-  // Función para configurar el comportamiento del formulario
-  function setupKeenSlider() {
-    // Obtiene el formulario por su ID
+  function setupContactForm() {
     const form = document.getElementById('contact-form');
-    if (form) {
-      // Agrega un evento de envío al formulario
-      form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new FormData(form);
-        
-        // Verificar si algún campo contiene la palabra "scam"
-        let containsScam = false;
-        for (let [key, value] of formData.entries()) {
-          if (value.toString().toLowerCase().includes('scam')) {
-            containsScam = true;
-            break;
-          }
-        }
+    if (!form) return;
 
-        if (containsScam) {
-          alert('Thank you for your message! We will get back to you soon. ➜');
-          form.reset();
-          return;
-        }
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const formData = new FormData(form);
 
-        // Envía los datos del formulario usando fetch
-        fetch(form.action, {
-          method: form.method,
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        }).then(response => {
-          if (response.ok) {
-            alert('Thank you for your message! We will get back to you soon. ➜');
-            form.reset();
-          } else {
-            alert('Oops! There was a problem submitting your form.');
-          }
-        }).catch(error => {
-          alert('Oops! There was a problem submitting your form.');
-        });
+      let containsScam = false;
+      for (let [, value] of formData.entries()) {
+        if (value.toString().toLowerCase().includes('scam')) {
+          containsScam = true;
+          break;
+        }
+      }
+
+      if (containsScam) {
+        alert('Thank you for your message! We will get back to you soon.');
+        form.reset();
+        return;
+      }
+
+      fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        alert('Thank you for your message! We will get back to you soon.');
+        form.reset();
+      }).catch(() => {
+        alert('Oops! There was a problem submitting your form.');
       });
-    }
+    });
   }
 
-  // Escucha el evento de carga de la página y ejecuta la función setupKeenSlider
-  document.addEventListener('astro:page-load', setupKeenSlider);
-  // Escucha el evento después del intercambio de vistas y ejecuta la función setupKeenSlider
-  document.addEventListener('astro:after-swap', setupKeenSlider);
-  // Ejecuta la función setupKeenSlider inmediatamente
-  setupKeenSlider();
+  document.addEventListener('astro:page-load', setupContactForm);
+  document.addEventListener('astro:after-swap', setupContactForm);
+  setupContactForm();
 </script>
-
-</section>

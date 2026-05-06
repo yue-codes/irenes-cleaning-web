@@ -3,10 +3,10 @@ interface Props {
     class?: string
     title: string
     subtitle?: string
-    
+    href?: string
 }
 
-    const { title, subtitle } = Astro.props
+    const { title, subtitle, href } = Astro.props
 ---
 
 <article
@@ -21,9 +21,9 @@ interface Props {
     group
     `} 
 >
-    <div 
+    <div
         class="absolute z-10 bottom-0 top-0 w-full h-full
-        bg-gradient-to-b from-transparent from-40% via-black/30 to-black/80"
+        bg-gradient-to-b from-black/40 via-black/50 to-black/80"
         >
 
     </div>
@@ -43,5 +43,14 @@ interface Props {
         }
 
         <slot name="content"></slot>
+
+        {href && (
+          <a
+            href={href}
+            class="mt-4 inline-block text-sm font-semibold text-white/90 hover:text-white border border-white/40 hover:border-white px-4 py-2 rounded-full transition duration-200"
+          >
+            Learn more →
+          </a>
+        )}
     </div>
 </article>

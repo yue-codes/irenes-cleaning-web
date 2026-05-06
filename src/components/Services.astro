@@ -1,37 +1,18 @@
 ---
 import Container from './shared/Container.astro';
-import ServiceIndividual from './ServiceIndividual.astro';
-
-
-import { services } from "../utils/data.ts";
-
-
-type ServicesProps = {
-    title: string;
-    description: string;
-    icon: string
-};
+import ServicesSlider from './ServicesSlider.tsx';
 
 
 ---
 
 <section id="services">
-    <Container className="space-y-10 md:sapce-y-12">
-        <div class="text-center max-w-3xl mx-auto space-y-4">
-            <h2 class="relative text-4xl lg:text-6xl text-center text-purple-800 font-bold mb-10 lg:mb-20 underline-pink text-heading-1">
-            Cleaning Services in Jersey City & Hoboken, NJ
-            </h2>                
+    <Container className="py-20 space-y-12">
+        <div class="text-center max-w-3xl mx-auto">
+            <h2 class="relative text-4xl lg:text-6xl text-center text-purple-800 font-bold underline-pink text-heading-1">
+                Cleaning Services in Jersey City & Hoboken, NJ
+            </h2>
         </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {
-                    services.map((service: ServicesProps) => {
-                    return (
-                            <ServiceIndividual title={service.title} description={service.description} icon={service.icon}>
-                            </ServiceIndividual>
-                            );
-                    })
-            }
-        </div>
+        <ServicesSlider client:visible />
     </Container>
 </section>
 

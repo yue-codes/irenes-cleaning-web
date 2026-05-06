@@ -8,9 +8,10 @@ import { ClientRouter } from 'astro:transitions';
 interface Props {
 	description: string;
 	title: string;
+	canonical?: string;
 }
 
-const { description, title } = Astro.props;
+const { description, title, canonical = "https://mrsirenescleaning.com" } = Astro.props;
 ---
 
 <!doctype html>
@@ -44,7 +45,7 @@ const { description, title } = Astro.props;
 		<meta name="twitter:image" content="https://mrsirenescleaning.com/logo1.webp">
 
 		<meta name="description" content={description} />
-		<link rel="canonical" href="https://mrsirenescleaning.com" />
+		<link rel="canonical" href={canonical} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<link rel="preload" as="image" href="hero.webp" fetchpriority="high">

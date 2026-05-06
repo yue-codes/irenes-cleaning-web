@@ -3,40 +3,60 @@ import FormsDescuento from './FormsDescuento.astro'
 ---
 
 <section
-  class="relative bg-cover bg-center bg-no-repeat bg-fuchsia-600"
-  style="background-image: url('/hero.webp')"
+  class="relative bg-cover bg-center bg-no-repeat min-h-screen"
+  style="background-image: url('/hero2.webp')"
 >
-<div class="absolute inset-0 bg-gray-800/70"></div>
+  <div class="absolute inset-0 bg-gray-900/75"></div>
 
-  <!-- Contenedor principal con padding y centrado -->
-<section class="relative text-white">
-  <div class="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center">
-    <div class="mx-auto max-w-3xl text-center">
-      <h1
-        class="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight
-             font-bold"
-      >
-        Mrs. Irene's Cleaning
+  <section class="relative text-white">
+    <div class="mx-auto max-w-screen-xl px-6 py-32 lg:py-0 lg:min-h-screen lg:flex lg:items-center">
+      <div class="w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-        <span class="sm:block text-transparent bg-clip-text bg-gradient-to-br from-purple-600 from-20% via-primary via-20% to-pink-600">Jersey City & Hoboken, NJ</span>
-      </h1>
+        <!-- Left: Text -->
+        <div class="text-center lg:text-left">
+          <h1 class="text-4xl/tight sm:text-5xl/tight xl:text-6xl/tight font-bold">
+            Mrs. Irene's Cleaning
+            <span class="block mt-2 text-transparent bg-clip-text bg-gradient-to-br from-purple-400 via-pink-400 to-pink-500">
+              Jersey City & Hoboken, NJ
+            </span>
+          </h1>
 
-      <p class="mx-auto mt-4 max-w-xl sm:text-xl/relaxed">
-        Professional house and apartment cleaning in Jersey City, Hoboken, and surrounding NJ areas — fast, affordable, and personalized. Let our expert team take care of your home!
-      </p>
+          <p class="mt-6 text-lg sm:text-xl text-white/80 leading-relaxed max-w-lg mx-auto lg:mx-0">
+            Professional house and apartment cleaning in Jersey City, Hoboken, and surrounding NJ areas — fast, affordable, and personalized.
+          </p>
 
-      <div class="mt-10  w-full flex max-w-md mx-auto lg:mx-0">
-                <div class="flex sm:flex-row flex-col gap-5 w-full">
-                    <FormsDescuento />
-                </div>
-        
+          <!-- Trust indicators -->
+          <div class="mt-10 flex flex-wrap justify-center lg:justify-start gap-6 text-sm">
+            <div class="flex flex-col items-center lg:items-start gap-1">
+              <span class="text-2xl font-bold text-purple-300">5.0 ★</span>
+              <span class="text-white/60">Star Reviews</span>
+            </div>
+            <div class="w-px bg-white/20 hidden sm:block"></div>
+            <div class="flex flex-col items-center lg:items-start gap-1">
+              <span class="text-2xl font-bold text-purple-300">+2,100</span>
+              <span class="text-white/60">Cleanings Done</span>
+            </div>
+            <div class="w-px bg-white/20 hidden sm:block"></div>
+            <div class="flex flex-col items-center lg:items-start gap-1">
+              <span class="text-2xl font-bold text-purple-300">+8 yrs</span>
+              <span class="text-white/60">Experience</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Form card -->
+        <div class="flex justify-center lg:justify-end">
+          <div class="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl">
+            <h2 class="text-2xl font-bold text-white mb-1">Get 20% OFF</h2>
+            <p class="text-white/60 text-sm mb-6">Your first cleaning — no upfront payment required.</p>
+            <FormsDescuento />
+            <p class="text-white/40 text-xs mt-5 text-center">
+              We'll contact you within 24 hours. No commitment.
+            </p>
+          </div>
+        </div>
+
       </div>
-
-      
     </div>
-  </div>
+  </section>
 </section>
-
-
-
-

@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import FormsContact from '../components/FormsContact.astro';
+---
+
+<Layout
+  title="Contact Us | Free Quote | Mrs. Irene's Cleaning Jersey City"
+  description="Contact Mrs. Irene's Cleaning in Jersey City & Hoboken, NJ. Get a free quote for professional house cleaning. We respond within 24 hours. No upfront payment."
+  canonical="https://mrsirenescleaning.com/contact"
+>
+  <!-- Hero -->
+  <section
+    class="relative bg-cover bg-center pt-40 pb-20 text-white"
+    style="background-image: url('/hero2.webp')"
+  >
+    <div class="absolute inset-0 bg-gray-900/80"></div>
+    <div class="relative max-w-3xl mx-auto px-6 text-center">
+      <p class="text-purple-300 text-sm font-semibold uppercase tracking-widest mb-4">
+        Mrs. Irene's Cleaning
+      </p>
+      <h1 class="text-4xl lg:text-5xl font-bold mb-5">
+        Get Your Free Quote
+      </h1>
+      <p class="text-white/70 text-lg max-w-xl mx-auto">
+        Fill out the form below and we'll get back to you within 24 hours with a personalized, no-obligation quote.
+      </p>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="max-w-screen-xl mx-auto px-6 py-16">
+    <h2 class="text-center text-2xl font-bold text-heading-1 mb-12">How it works</h2>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 relative">
+
+      <!-- Connecting line desktop -->
+      <div class="hidden lg:block absolute top-6 left-[12.5%] right-[12.5%] h-px bg-purple-100 z-0"></div>
+
+      {[
+        { n: "1", title: "Fill the form", desc: "Tell us about your home and specific needs." },
+        { n: "2", title: "We contact you", desc: "Within 24 hours — we adapt to your schedule." },
+        { n: "3", title: "Free quote", desc: "Personalized estimate, no commitment required." },
+        { n: "4", title: "Enjoy a clean home", desc: "No upfront payment — pay after the job is done." },
+      ].map((step) => (
+        <div class="relative z-10 text-center flex flex-col items-center">
+          <div class="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center text-lg font-bold mb-4 shadow-md shadow-purple-200">
+            {step.n}
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-1">{step.title}</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Form -->
+  <FormsContact />
+
+  <!-- Areas served -->
+  <section class="bg-gray-50 border-t border-gray-100">
+    <div class="max-w-screen-xl mx-auto px-6 py-12 text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-purple-600 mb-3">Service Areas</p>
+      <p class="text-gray-500 text-sm">
+        Jersey City · Hoboken · Newark · Orange · Maplewood · Bayonne · and surrounding NJ areas
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

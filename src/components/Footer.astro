@@ -1,115 +1,76 @@
 ---
-import Facebook from "./icons/Facebook.astro"
-import Instagram from "./icons/Instagram.astro"
-import Tiktok from "./icons/Tiktok.astro"
+const currentYear = new Date().getFullYear();
 ---
 
-<footer class="mt-24 bg-black/70">
-  <div class="mx-auto w-full max-w-screen-xl p-4 px-6 py-6 lg:py-8">
-    <div class="md:flex md:justify-between">
-      <div class="mb-6 flex flex-col md:mb-0">
-        <a
-          href="/"
-          class="-mt-14 flex items-center justify-center"
-        >
+<footer class="bg-gray-900 text-gray-400">
+  <div class="mx-auto max-w-screen-xl px-6 py-16">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-10">
 
-        <img src="logo1.webp" alt="Logo" class="h-auto w-24" />
-
+      <!-- Brand -->
+      <div class="col-span-2 lg:col-span-1">
+        <a href="/" class="inline-block mb-5">
+          <img src="/logo1.webp" alt="Mrs. Irene's Cleaning logo" class="h-16 w-auto" />
         </a>
-
-        <div class="mt-6 flex justify-center gap-x-4">
-          <a href="#contact" class="text-white hover:text-purple-500 duration-300">
-            <Facebook />
-            <span class="sr-only">Facebook</span>
-          </a>
-
-          <a href="#contact" class="text-white hover:text-purple-500  duration-300">
-            <Instagram />
-            <span class="sr-only">Instagram</span>
-          </a>
-
-          <a href="#contact" class="text-white hover:text-purple-500 duration-300">
-            <Tiktok />
-            <span class="sr-only">Tiktok</span>
-          </a>
-        
-        </div>
+        <p class="text-sm leading-relaxed mb-4">
+          Professional cleaning services in Jersey City, Hoboken, and surrounding NJ areas.
+        </p>
+        <p class="text-xs text-gray-500">
+          Jersey City & Hoboken, NJ<br />
+          Newark · Orange · Maplewood · Bayonne
+        </p>
       </div>
-      
-      <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-6">
-        <div>
-          <h2 class="mb-6 text-sm font-semibold uppercase text-white">
-            Services
-          </h2>
-          <ul class="flex flex-col gap-2 font-medium text-gray-400">
-            <li>
-              <a
-                href="#contact"
-                class="hover:underline hover:text-purple-500 duration-300"
-                >Standard Cleaning</a
-              >
-            </li>
-            <li>
-              <a
-                href="#contact"
-                class="hover:underline hover:text-purple-500 duration-300"
-                >Deep Cleaning</a
-              >
-            </li>
-            <li>
-              <a
-                href="#contact"
-                class="hover:underline hover:text-purple-500 duration-300"
-                >More Services</a
-              >
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h2 class="mb-6 text-sm font-semibold uppercase text-white">
-            Site web
-          </h2>
-          <ul class="flex flex-col gap-2 font-medium text-gray-400">
-            <li>
-              <a
-                href="/"
-                class="hover:underline hover:text-purple-500 duration-300"
-                >HOME</a
-              >
-            </li>
-            <li>
-              <a
-                href="#services"
-                class="hover:underline hover:text-purple-500 duration-300"
-                >Services</a
-              >
-            </li>
-            <li>
-              <a
-                href="#contact"
-                class="hover:underline hover:text-purple-500 duration-300"
-                >Contact</a
-              >
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h2 class="mb-0 text-sm font-semibold uppercase text-white">
-            Mrs. Irene's Cleaning
-          </h2>
-          <a href="/" rel="noreferrer">
-            <img
-              class="mt-4 w-20 h-auto"
-              src="logo1.webp"
-              alt="Mrs. Irene's Cleaning logo"
-            />
-          </a>
-          <p class="mt-4 text-xs text-gray-400">Jersey City & Hoboken, NJ</p>
-          <a href="tel:+12015238741" class="mt-1 block text-xs text-gray-400 hover:text-purple-400 duration-300">(201) 523-8741</a>
-        </div>
+
+      <!-- Services -->
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-5">Services</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="/services/deep-cleaning" class="hover:text-purple-400 transition-colors duration-200">Deep Cleaning</a></li>
+          <li><a href="/services/standard-cleaning" class="hover:text-purple-400 transition-colors duration-200">Standard Cleaning</a></li>
+          <li><a href="/services/move-in-out-cleaning" class="hover:text-purple-400 transition-colors duration-200">Move-In / Move-Out</a></li>
+          <li><a href="/services/airbnb-cleaning" class="hover:text-purple-400 transition-colors duration-200">Airbnb Turnover</a></li>
+          <li><a href="/services/commercial-cleaning" class="hover:text-purple-400 transition-colors duration-200">Commercial</a></li>
+          <li><a href="/services/custom-add-ons" class="hover:text-purple-400 transition-colors duration-200">Custom Add-ons</a></li>
+        </ul>
       </div>
+
+      <!-- Quick links -->
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-5">Quick Links</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="/" class="hover:text-purple-400 transition-colors duration-200">Home</a></li>
+          <li><a href="/services" class="hover:text-purple-400 transition-colors duration-200">All Services</a></li>
+          <li><a href="/#about" class="hover:text-purple-400 transition-colors duration-200">About Us</a></li>
+          <li><a href="/contact" class="hover:text-purple-400 transition-colors duration-200">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="col-span-2 lg:col-span-1">
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-5">Contact</h3>
+        <ul class="space-y-3 text-sm">
+          <li>
+            <a href="mailto:info@mrsirenescleaning.com" class="hover:text-purple-400 transition-colors duration-200">
+              info@mrsirenescleaning.com
+            </a>
+          </li>
+          <li class="pt-2">
+            <a
+              href="/#contact"
+              class="inline-block bg-purple-600 hover:bg-purple-500 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors duration-200"
+              href="/contact"
+            >
+              Get a Free Quote
+            </a>
+          </li>
+        </ul>
+      </div>
+
     </div>
-    <hr class="my-6 border-white/10 sm:mx-auto lg:my-8" />
-    
+
+    <hr class="my-10 border-white/10" />
+
+    <p class="text-center text-xs text-gray-600">
+      © {currentYear} Mrs. Irene's Cleaning. All rights reserved.
+    </p>
   </div>
 </footer>
