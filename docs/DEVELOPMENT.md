@@ -152,6 +152,50 @@ Cambios aplicados en `src/layouts/Layout.astro` y `src/pages/index.astro`:
 - Typo `md:sapce-y-12` en Services.astro (clase inexistente)
 - `min-h-screen` en sección Services forzaba espacio vacío antes del Bento
 
+### ✅ Fase 9 — Rediseño UI avanzado + página de contacto (2026-05-06)
+
+#### Página de contacto
+
+- **`src/pages/contact.astro`** — página dedicada con hero, sección "How it works" (4 pasos con línea conectora en desktop), FormsContact, banda de áreas de servicio, Footer.
+- **`ButtonContact.astro`** — actualizado de `#contact` → `/contact`
+- **`Hamburgermenu.tsx`** — botón Contact Us actualizado a `/contact`
+- **`Footer.astro`** — links Contact y "Get a Free Quote" actualizados a `/contact`
+
+#### Rediseño FormsContact
+
+- Layout dividido: panel izquierdo púrpura (imagen `bento4.webp` con overlay `bg-purple-900/90`) + panel derecho blanco con formulario
+- Panel izquierdo: 5 props de valor con íconos checkmark, sin teléfono ni redes sociales (pendientes)
+- Panel derecho: inputs con `border border-gray-200` explícito, `rounded-xl`, focus ring púrpura, radio buttons como pills con `has-[:checked]` CSS nativo
+- Service type extendido: Standard, Deep Clean, Move-In/Out, Airbnb, Custom
+- Sin imagen `/1.png`, sin links sociales, sin `lg:h-screen`
+
+#### Rediseño Footer
+
+- Estructura 4 columnas (`grid-cols-2 lg:grid-cols-4`): Brand, Services, Quick Links, Contact
+- En móvil: Brand y Contact en ancho completo (`col-span-2`), Services y Quick Links en 2 columnas
+- Services: 6 links reales a páginas individuales
+- Quick Links: Home, All Services, About, Contact
+- Contact: solo email + botón "Get a Free Quote" → `/contact`
+- Copyright con año dinámico (`new Date().getFullYear()`)
+- Sin iconos sociales (pendiente URLs reales), sin número de teléfono (movido a contacto directo)
+- Fondo `bg-gray-900` sólido (reemplaza `bg-black/70` semitransparente)
+
+#### Rediseño FAQ
+
+- Layout dos columnas: título sticky a la izquierda (`lg:sticky lg:top-28`), acordeón a la derecha
+- Label "FAQ" en púrpura pequeño sobre el título
+- Botón CTA "Still have questions? Contact us" en panel izquierdo
+- Ícono `+` que rota 45° a `×` al abrir (reemplaza chevron)
+- Fondo del ícono en `bg-purple-50`
+- En móvil: columna única (título arriba, acordeón abajo)
+
+#### Rediseño ServicesSlider
+
+- Cards horizontales: ícono con gradiente `purple→pink` a la izquierda, texto a la derecha
+- En móvil: scroll horizontal con CSS snap + dots indicadores (activo se alarga con `w-6`)
+- En desktop: grid 2/3 columnas con hover effects
+- `ServicesSlider.tsx` — componente Preact, `client:visible`
+
 ---
 
 ## Mejoras futuras
