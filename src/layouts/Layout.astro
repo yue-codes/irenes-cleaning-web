@@ -16,31 +16,79 @@ const { description, title } = Astro.props;
 <!doctype html>
 <html lang="en">
 	<head>
-    <meta name="robots" content="index, follow">
-    <meta name="keywords" content="irenes cleaning, msr irenes cleaning, cleaning service, deep cleaning, maid service, Jersey City cleaning service,
-      New Jersey cleaning service, post-construction cleaning, move-out cleaning, carpet cleaning">
-
-    <meta property="og:title" content={title}>
-    <meta property="og:description" content={description}>
-    <meta property="og:image" content="https://mrsirenescleaning.com/logo1.webp">
-    <meta property="og:url" content="https://mrsirenescleaning.com">
-    <meta property="og:site_name" content="Irene's Cleaning">
-    <meta property="og:type" content="website">
-
-
 		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <link rel="preload" as="image" href="hero.webp" fetchpriority="high">
-    
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-55MMPX3C');</script>
+		<!-- End Google Tag Manager -->
+
+		<meta name="robots" content="index, follow">
+		<meta name="keywords" content="mrs irenes cleaning, cleaning service jersey city, house cleaning hoboken, deep cleaning jersey city, maid service jersey city NJ, move-in move-out cleaning, airbnb cleaning, commercial cleaning NJ">
+
+		<meta property="og:title" content={title}>
+		<meta property="og:description" content={description}>
+		<meta property="og:image" content="https://mrsirenescleaning.com/logo1.webp">
+		<meta property="og:url" content="https://mrsirenescleaning.com">
+		<meta property="og:site_name" content="Mrs. Irene's Cleaning">
+		<meta property="og:type" content="website">
+
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content={title}>
+		<meta name="twitter:description" content={description}>
+		<meta name="twitter:image" content="https://mrsirenescleaning.com/logo1.webp">
+
+		<meta name="description" content={description} />
+		<link rel="canonical" href="https://mrsirenescleaning.com" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="sitemap" href="/sitemap-index.xml" />
+		<link rel="preload" as="image" href="hero.webp" fetchpriority="high">
+
 		<title>{title}</title>
 
-    
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "CleaningService",
+			"name": "Mrs. Irene's Cleaning",
+			"url": "https://mrsirenescleaning.com",
+			"telephone": "+12015238741",
+			"image": "https://mrsirenescleaning.com/logo1.webp",
+			"description": "Professional residential and commercial cleaning services in Jersey City and Hoboken, NJ. Deep cleaning, regular cleaning, move-in/out, Airbnb, and commercial cleaning.",
+			"priceRange": "$$",
+			"areaServed": [
+				{"@type": "City", "name": "Jersey City"},
+				{"@type": "City", "name": "Hoboken"},
+				{"@type": "City", "name": "Newark"},
+				{"@type": "City", "name": "Orange"},
+				{"@type": "City", "name": "Maplewood"},
+				{"@type": "City", "name": "Bayonne"}
+			],
+			"hasOfferCatalog": {
+				"@type": "OfferCatalog",
+				"name": "Cleaning Services",
+				"itemListElement": [
+					{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Deep Cleaning"}},
+					{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Regular Cleaning"}},
+					{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Move-in/Move-out Cleaning"}},
+					{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Airbnb Cleaning"}},
+					{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Commercial Cleaning"}}
+				]
+			},
+			"sameAs": []
+		}
+		</script>
 	</head>
 	<body class="overflow-hidden overflow-y-auto bg-body">
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-55MMPX3C"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
 		<Header />
 		<slot />
 
