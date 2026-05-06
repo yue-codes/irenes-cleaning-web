@@ -113,6 +113,45 @@ Cambios aplicados en `src/layouts/Layout.astro` y `src/pages/index.astro`:
 - Fase 3: Directorios gratuitos — Yelp, Angi, Thumbtack, Bing Places, Apple Maps, Facebook (usuario)
 - Fase 4: Estructura H1/H2, FAQ section, contenido por ciudad (Claude)
 
+### ✅ Fase 8 — Páginas de servicios + rediseño UI (2026-05-06)
+
+#### Páginas de servicio
+
+- **`src/utils/servicesData.ts`** — datos completos de 6 servicios: Deep Cleaning, Standard Cleaning, Move-In/Out, Airbnb Turnover, Commercial Cleaning, Custom Add-ons. Cada uno con slug, metaTitle, metaDescription, title, tagline, imagen, intro, secciones con items y nota.
+- **`src/pages/services/[service].astro`** — página dinámica con `getStaticPaths`. Hero con imagen de fondo, secciones con checkmarks, nota destacada, CTA en púrpura.
+- **`src/pages/services/index.astro`** — hub de todos los servicios. Hero con imagen, grid de 6 cards (imagen + tagline + 3 bullets + "View Details"), CTA + formulario de contacto.
+- Sitemap recoge automáticamente las 8 páginas (home + /services + 6 individuales).
+- Canonical dinámico: `Layout.astro` acepta prop `canonical?: string` (default: homepage).
+
+#### Navegación
+
+- **`ServicesDropdown.tsx`** — nuevo componente Preact para el dropdown de servicios en desktop. Click para abrir/cerrar, cierre al hacer clic fuera, chevron animado. Reemplaza el enfoque CSS hover que no funcionaba.
+- **`Hamburgermenu.tsx`** — rediseñado como overlay full-screen con `createPortal` (evita el problema del `backdrop-filter` del header que atrapaba el `fixed`). Fondo oscuro `rgba(10,5,25,0.96)` con blur, logo + X arriba, links centrados con submenu de servicios expandible, botón Contact al fondo.
+- **`Header.astro`** — logo corregido a `/logo1.webp` (ruta absoluta), nombre de marca actualizado a "Mrs. Irene's Cleaning", `lg:overflow-visible` en el navbar para que el dropdown no quede cortado.
+
+#### Rediseño Hero
+
+- **`Hero.astro`** — layout de dos columnas en desktop: texto + indicadores de confianza a la izquierda, formulario de descuento en card de vidrio (glass morphism) a la derecha. Overlay `bg-gray-900/75`. Imagen cambiada a `hero2.webp`.
+
+#### Rediseño Services
+
+- **`ServiceIndividual.astro`** — rediseñado a card horizontal: ícono con gradiente `purple→pink` a la izquierda, título y descripción a la derecha. Sin barra arcoíris ni círculo decorativo.
+- **`ServicesSlider.tsx`** — nuevo componente Preact. En móvil: scroll horizontal con CSS snap + dots indicadores (el activo se alarga). En desktop: grid 2/3 columnas. Scrollbar oculto.
+- **`Services.astro`** — usa `ServicesSlider client:visible`. Padding propio (`py-20`), `space-y-12`. Se eliminó `min-h-screen` del wrapper en `index.astro`.
+
+#### Bento
+
+- **`BentoItem.astro`** — gradiente oscuro uniforme en toda la card (`from-black/40 via-black/50 to-black/80`). Prop `href?` para "Learn more →" links.
+- **`Bento.astro`** — cada item enlaza a su página de servicio individual.
+
+#### Bugs corregidos en esta fase
+
+- Logo con ruta relativa (`logo1.webp`) → ruta absoluta (`/logo1.webp`) en Header y Footer — se rompía en `/services/*`
+- `overflow-hidden` en navbar cortaba el dropdown en desktop → `lg:overflow-visible`
+- `backdrop-filter` del header atrapaba `position: fixed` del overlay móvil → `createPortal` al `document.body`
+- Typo `md:sapce-y-12` en Services.astro (clase inexistente)
+- `min-h-screen` en sección Services forzaba espacio vacío antes del Bento
+
 ---
 
 ## Mejoras futuras
